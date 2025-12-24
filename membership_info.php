@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Shopping Mall Membership</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Membership Info - Orked Mall</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -23,91 +24,95 @@
       min-height: 100vh;
     }
 
-    /* Navigation Bar - Added Sandstone Color */
-    .navbar {
-      background-color: var(--brand-sand);
-      color: var(--text-dark);
-      padding: 15px 60px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: relative;
-      z-index: 1000;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    /* Updated Navigation to match Index.html */
+    .topbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 60px;
+        background-color: var(--brand-sand);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
     }
 
-    .navbar h1 {
-      margin: 0;
-      font-size: 18px;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      font-weight: 600;
+    .logo a {
+        text-decoration: none;
+        color: var(--text-dark);
+        display: flex;
+        align-items: center;
+        gap: 12px;
     }
 
-    /* Hamburger Menu Icon */
-    .hamburger {
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-      padding: 10px;
+    .logo span {
+        font-size: 18px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        font-weight: 600;
     }
 
-    .hamburger div {
-      width: 22px;
-      height: 2px;
-      background-color: var(--text-dark);
-      transition: 0.3s;
+    .logo-img {
+        height: 40px;
+        width: auto;
     }
 
-    /* Dropdown Menu */
-    .nav-dropdown {
-      position: absolute;
-      top: 100%;
-      right: 60px;
-      background: var(--white);
-      border: 1px solid var(--border-light);
-      width: 200px;
-      display: none;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-      border-radius: 0 0 8px 8px;
-      overflow: hidden;
+    /* Hamburger / Icon Controls */
+    .icon-btn {
+        font-size: 24px;
+        cursor: pointer;
+        border: none;
+        background: none;
+        color: var(--text-dark);
+        transition: 0.3s;
     }
 
-    .nav-dropdown.active {
-      display: block;
-      animation: fadeIn 0.3s ease;
-    }
+    .icon-btn:hover { color: var(--brand-rose); }
 
-    .nav-dropdown a {
-      display: block;
-      padding: 15px 20px;
-      text-decoration: none;
-      color: var(--text-dark);
-      font-size: 14px;
-      transition: background 0.2s;
-    }
+    .dropdown { position: relative; }
 
-    .nav-dropdown a:hover {
-      background-color: #f5f5f5;
-      color: var(--brand-rose);
+    .dropdown-menu {
+        display: none;
+        position: absolute;
+        right: 0;
+        top: 50px;
+        background: var(--white);
+        border: 1px solid var(--border-light);
+        width: 200px;
+        border-radius: 8px;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        overflow: hidden;
+        animation: fadeIn 0.3s ease;
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-10px); }
-      to { opacity: 1; transform: translateY(0); }
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Page Title */
+    .dropdown-menu.show { display: block; }
+
+    .dropdown-menu a {
+        display: block;
+        padding: 12px 20px;
+        text-decoration: none;
+        color: var(--text-dark);
+        font-size: 14px;
+        border-bottom: 1px solid #f5f5f5;
+    }
+
+    .dropdown-menu a:hover { background: #f5f5f5; color: var(--brand-rose); }
+
+    /* Page Content */
     .page-title {
       text-align: center;
       font-size: 32px;
       font-weight: 300;
       margin: 80px 0 50px 0;
       letter-spacing: 1px;
+      text-transform: uppercase;
     }
 
-    /* Membership Section */
     .membership-section {
       max-width: 900px;
       margin: 0 auto 60px auto;
@@ -117,7 +122,6 @@
       padding: 20px;
     }
 
-    /* Card Styling */
     .flip-card {
       width: 350px;
       height: 220px;
@@ -133,9 +137,7 @@
       transform-style: preserve-3d;
     }
 
-    .flip-card:hover .flip-card-inner {
-      transform: rotateY(180deg);
-    }
+    .flip-card:hover .flip-card-inner { transform: rotateY(180deg); }
 
     .flip-card-front, .flip-card-back {
       position: absolute;
@@ -152,13 +154,11 @@
 
     .flip-card-front.platinum {
       background-color: var(--brand-sand);
-      color: var(--text-dark);
       box-shadow: 0 10px 25px rgba(0,0,0,0.05);
     }
 
     .flip-card-front.gold {
       background-color: #f9f9f9;
-      color: var(--text-dark);
       border: 1px solid var(--border-light);
     }
 
@@ -171,19 +171,12 @@
     }
 
     .membership-title {
-      font-size: 22px;
+      font-size: 20px;
       font-weight: 600;
       letter-spacing: 2px;
       text-transform: uppercase;
     }
 
-    .price {
-      font-size: 16px;
-      opacity: 0.8;
-      font-weight: 400;
-    }
-
-    /* Benefits List */
     .benefits h3 {
       font-size: 18px;
       font-weight: 600;
@@ -202,23 +195,21 @@
     .benefits li {
       margin-bottom: 12px;
       font-size: 14px;
-      color: #555;
+      color: #666;
     }
 
-    /* Fixed Size Buttons */
     .subscribe-btn {
       background-color: var(--text-dark);
       color: white;
       border: none;
-      width: 200px; /* Standardized width */
-      height: 45px; /* Standardized height */
+      width: 200px;
+      height: 45px;
       border-radius: 4px;
       font-size: 12px;
       letter-spacing: 2px;
       text-transform: uppercase;
       cursor: pointer;
       transition: 0.3s;
-      display: block;
     }
 
     .subscribe-btn:hover {
@@ -226,18 +217,10 @@
       transform: translateY(-2px);
     }
 
-    .footer {
-      color: #bbbbbb;
-      text-align: center;
-      padding: 60px;
-      font-size: 11px;
-      letter-spacing: 1px;
-      margin-top: auto;
-    }
+    .footer-placeholder { margin-top: auto; }
 
     @media (max-width: 850px) {
-      .navbar { padding: 15px 30px; }
-      .nav-dropdown { right: 30px; }
+      .topbar { padding: 15px 30px; }
       .membership-section { flex-direction: column; text-align: center; }
       .subscribe-btn { margin: 0 auto; }
     }
@@ -245,28 +228,34 @@
 </head>
 <body>
 
-  <nav class="navbar">
-    <h1>Orked Mall</h1>
-    <div class="hamburger" onclick="toggleMenu()">
-      <div></div>
-      <div></div>
-      <div></div>
+<header class="topbar">
+    <div class="logo">
+        <a href="index.html">
+            <img src="images/logo.jpg" class="logo-img">
+            <span>Orked Mall</span>
+        </a>
     </div>
-    <div class="nav-dropdown" id="navDropdown">
-      <a href="#">Home</a>
-      <a href="#">About Us</a>
-      <a href="#">Membership Info</a>
-    </div>
-  </nav>
 
-  <div class="page-title">Curated Membership</div>
+    <nav class="right-controls">
+        <div class="dropdown">
+            <button class="icon-btn" onclick="toggleDrop()">☰</button>
+            <div id="menuList" class="dropdown-menu">
+                <a href="index.html">Home</a>
+                <a href="about.html">About Us</a>
+                <a href="membership_info.php">Membership Info</a>
+            </div>
+        </div>
+    </nav>
+</header>
 
-  <div class="membership-section">
+<div class="page-title">Curated Membership</div>
+
+<div class="membership-section">
     <div class="flip-card">
       <div class="flip-card-inner">
         <div class="flip-card-front platinum">
           <div class="membership-title">Platinum</div>
-          <div class="price">RM 60.00 / 2 Years</div>
+          <div style="font-size: 14px; opacity: 0.8;">RM 60.00 / 2 Years</div>
         </div>
         <div class="flip-card-back">
           <p>Exclusive privileges for our most valued guests.</p>
@@ -281,16 +270,16 @@
         <li>Valet Parking Benefits</li>
         <li>Bespoke Seasonal Gifts</li>
       </ul>
-      <button class="subscribe-btn">Join Platinum</button>
+      <button class="subscribe-btn" onclick="location.href='register.html'">Join Platinum</button>
     </div>
-  </div>
+</div>
 
-  <div class="membership-section">
+<div class="membership-section">
     <div class="flip-card">
       <div class="flip-card-inner">
         <div class="flip-card-front gold">
           <div class="membership-title">Gold</div>
-          <div class="price">RM 30.00 / 1 Year</div>
+          <div style="font-size: 14px; opacity: 0.8;">RM 30.00 / 1 Year</div>
         </div>
         <div class="flip-card-back">
           <p>Elevate your lifestyle with our premium rewards.</p>
@@ -305,29 +294,30 @@
         <li>1-Hour Complimentary Parking</li>
         <li>Early Sale Notifications</li>
       </ul>
-      <button class="subscribe-btn">Join Gold</button>
+      <button class="subscribe-btn" onclick="location.href='register.html'">Join Gold</button>
     </div>
-  </div>
+</div>
 
-  <div class="footer">
-    &copy; 2025 ORKED SHOPPING MALL. ALL RIGHTS RESERVED.
-  </div>
+<div id="footer-placeholder"></div>
 
-  <script>
-    function toggleMenu() {
-      const menu = document.getElementById('navDropdown');
-      menu.classList.toggle('active');
+<script>
+    function toggleDrop() {
+        document.getElementById('menuList').classList.toggle('show');
     }
 
-    window.onclick = function(event) {
-      if (!event.target.closest('.hamburger')) {
-        const menu = document.getElementById('navDropdown');
-        if (menu && menu.classList.contains('active')) {
-          menu.classList.remove('active');
+    window.onclick = function(e) {
+        if (!e.target.matches('.icon-btn')) {
+            const menu = document.getElementById('menuList');
+            if (menu.classList.contains('show')) menu.classList.remove('show');
         }
-      }
     }
-  </script>
+
+    fetch("footer.html")
+        .then(res => res.text())
+        .then(data => {
+            document.getElementById("footer-placeholder").innerHTML = data;
+        });
+</script>
 
 </body>
 </html>
