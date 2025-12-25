@@ -242,7 +242,6 @@
             <div id="menuList" class="dropdown-menu">
                 <a href="index.html">Home</a>
                 <a href="about.html">About Us</a>
-                <a href="membership_info.php">Membership Info</a>
             </div>
         </div>
     </nav>
