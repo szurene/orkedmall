@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --brand-sand: #e5dcd6;
+            --brand-sand: #ada192;
             --brand-rose: #e19bb1;
             --text-dark: #333333;
             --white: #ffffff;
@@ -61,23 +61,41 @@
             border: none;
             background: none;
             color: var(--text-dark);
+            padding-bottom: 10px; /* Bridge gap for hover */
         }
 
-        .dropdown { position: relative; }
+        /* HOVER MOVEMENT LOGIC */
+        .dropdown { 
+            position: relative; 
+            display: inline-block;
+        }
         
         .menu-list {
-            display: none;
+            display: block; /* Change from none to block to allow transitions */
             position: absolute;
             right: 0;
-            top: 50px;
+            top: 45px;
             background: var(--white);
             border: 1px solid var(--border-light);
             width: 200px;
             border-radius: 8px;
             box-shadow: 0 10px 20px rgba(0,0,0,0.1);
             overflow: hidden;
+            
+            /* Hidden State */
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s ease-in-out;
         }
-        .menu-list.show { display: block; }
+
+        /* Show on Hover */
+        .dropdown:hover .menu-list {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
         .menu-list a {
             display: block;
             padding: 12px 20px;
@@ -129,7 +147,7 @@
             border-radius: 50%;
             object-fit: cover;
             border: 1px solid var(--brand-rose);
-            padding: 5px; /* Creates a small gap between border and image */
+            padding: 5px;
             margin-bottom: 20px;
         }
 
@@ -142,7 +160,7 @@
         }
         .team-member p { color: #888; font-size: 0.85rem; margin: 0; text-transform: uppercase; }
 
-        /* BENEFITS GRID - Updated to Brand Sand */
+        /* BENEFITS GRID */
         .benefits-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -183,12 +201,12 @@
 <header class="topbar">
     <div class="logo">
         <a href="index.html">
-            <img src="images/logo.jpg" class="logo-img">
+            <img src="images/logo.png" class="logo-img">
             <span>Orked Mall</span>
         </a>
     </div>
     <div class="dropdown">
-        <button class="menu-btn" onclick="toggleMenu()">☰</button>
+        <button class="menu-btn">☰</button>
         <div id="menuList" class="menu-list">
             <a href="index.html">Home</a>
             <a href="membership_info.php">Membership Info</a>
@@ -243,7 +261,7 @@
         </div>
         <div class="benefit-card">
             <h4>Digital Portal</h4>
-            <p>Manage your entire profile and rewards  through our seamless online system.</p>
+            <p>Manage your entire profile and rewards through our seamless online system.</p>
         </div>
         <div class="benefit-card">
             <h4>Exclusive Access</h4>
@@ -255,19 +273,7 @@
 <div id="footer"></div>
 
 <script>
-function toggleMenu() {
-    document.getElementById('menuList').classList.toggle('show');
-}
-
-window.onclick = function(e) {
-    if (!e.target.matches('.menu-btn')) {
-        const dropdown = document.getElementById('menuList');
-        if (dropdown.classList.contains('show')) {
-            dropdown.classList.remove('show');
-        }
-    }
-}
-
+/* Menu toggle function removed to allow pure hover behavior */
 fetch('footer.html')
     .then(res => res.text())
     .then(data => {
