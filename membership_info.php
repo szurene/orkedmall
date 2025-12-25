@@ -7,7 +7,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --brand-sand: #e5dcd6;
+      --brand-sand: #ada192;
       --brand-rose: #e19bb1;
       --text-dark: #333333;
       --border-light: #e0e0e0;
@@ -231,7 +231,7 @@
 <header class="topbar">
     <div class="logo">
         <a href="index.html">
-            <img src="images/logo.jpg" class="logo-img">
+            <img src="images/logo.png" class="logo-img">
             <span>Orked Mall</span>
         </a>
     </div>
