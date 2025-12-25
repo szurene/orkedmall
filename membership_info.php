@@ -24,7 +24,6 @@
       min-height: 100vh;
     }
 
-    /* Updated Navigation to match Index.html */
     .topbar {
         display: flex;
         justify-content: space-between;
@@ -57,7 +56,6 @@
         width: auto;
     }
 
-    /* Hamburger / Icon Controls */
     .icon-btn {
         font-size: 24px;
         cursor: pointer;
@@ -103,7 +101,6 @@
 
     .dropdown-menu a:hover { background: #f5f5f5; color: var(--brand-rose); }
 
-    /* Page Content */
     .page-title {
       text-align: center;
       font-size: 32px;
@@ -123,8 +120,8 @@
     }
 
     .flip-card {
-      width: 350px;
-      height: 220px;
+      width: 437px;
+      height: 310px;
       perspective: 1000px;
       flex-shrink: 0;
     }
@@ -150,24 +147,36 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      background-size: cover;
+      background-position: center;
+      overflow: hidden;
     }
 
+    /* Front Faces */
     .flip-card-front.platinum {
-      background-color: var(--brand-sand);
-      box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+      background-image: url('images/platinum-front.png');
+      color: white;
     }
 
     .flip-card-front.gold {
-      background-color: #f9f9f9;
-      border: 1px solid var(--border-light);
+      background-image: url('images/gold-front.png');
+      color: white;
     }
 
+    /* Back Faces */
     .flip-card-back {
-      background-color: var(--text-dark);
-      color: #ffffff;
       transform: rotateY(180deg);
       text-align: center;
       justify-content: center;
+      color: #ffffff;
+    }
+
+    .flip-card-back.platinum-back {
+      background-image: url('images/platinum-back.png');
+    }
+
+    .flip-card-back.gold-back {
+      background-image: url('images/gold-back.png');
     }
 
     .membership-title {
@@ -175,6 +184,7 @@
       font-weight: 600;
       letter-spacing: 2px;
       text-transform: uppercase;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
     }
 
     .benefits h3 {
@@ -217,7 +227,7 @@
       transform: translateY(-2px);
     }
 
-    .footer-placeholder { margin-top: auto; }
+    #footer-placeholder { margin-top: auto; }
 
     @media (max-width: 850px) {
       .topbar { padding: 15px 30px; }
@@ -252,13 +262,8 @@
 <div class="membership-section">
     <div class="flip-card">
       <div class="flip-card-inner">
-        <div class="flip-card-front platinum">
-          <div class="membership-title">Platinum</div>
-          <div style="font-size: 14px; opacity: 0.8;">RM 60.00 / 2 Years</div>
-        </div>
-        <div class="flip-card-back">
-          <p>Exclusive privileges for our most valued guests.</p>
-        </div>
+        <div class="flip-card-front platinum"></div>
+        <div class="flip-card-back platinum-back"></div>
       </div>
     </div>
     <div class="benefits">
@@ -276,13 +281,8 @@
 <div class="membership-section">
     <div class="flip-card">
       <div class="flip-card-inner">
-        <div class="flip-card-front gold">
-          <div class="membership-title">Gold</div>
-          <div style="font-size: 14px; opacity: 0.8;">RM 30.00 / 1 Year</div>
-        </div>
-        <div class="flip-card-back">
-          <p>Elevate your lifestyle with our premium rewards.</p>
-        </div>
+        <div class="flip-card-front gold"></div>
+        <div class="flip-card-back gold-back"></div>
       </div>
     </div>
     <div class="benefits">
