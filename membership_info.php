@@ -158,12 +158,12 @@
 
     /* Front Faces */
     .flip-card-front.platinum {
-      background-image: url('images/platinum-front.png');
+      background-image: url('images/platinum_front.png');
       color: white;
     }
 
     .flip-card-front.gold {
-      background-image: url('images/gold-front.png');
+      background-image: url('images/gold_front.png');
       color: white;
     }
 
@@ -176,11 +176,11 @@
     }
 
     .flip-card-back.platinum-back {
-      background-image: url('images/platinum-back.png');
+      background-image: url('images/platinum_back.png');
     }
 
     .flip-card-back.gold-back {
-      background-image: url('images/gold-back.png');
+      background-image: url('images/gold_back.png');
     }
 
     .membership-title {
@@ -277,7 +277,7 @@
         <li>Valet Parking Benefits</li>
         <li>Bespoke Seasonal Gifts</li>
       </ul>
-      <button class="subscribe-btn" onclick="location.href='register.html'">Join Platinum</button>
+      <button class="subscribe-btn" onclick="location.href='memberRegister.php'">Join Platinum</button>
     </div>
 </div>
 
@@ -296,7 +296,7 @@
         <li>1-Hour Complimentary Parking</li>
         <li>Early Sale Notifications</li>
       </ul>
-      <button class="subscribe-btn" onclick="location.href='register.html'">Join Gold</button>
+      <button class="subscribe-btn" onclick="location.href='memberRegister.php'">Join Gold</button>
     </div>
 </div>
 
