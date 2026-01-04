@@ -11,8 +11,7 @@
 <header class="topbar">
     <div class="logo">
         <a href="index.html">
-            <img src="images/logo.png" class="logo-img">
-            <span>Orked Mall</span>
+            <img src="images/orked.png" class="logo-img">
         </a>
     </div>
 

@@ -108,7 +108,7 @@
 
 <div class="login-container">
     <a href="index.html">
-        <img src="images/logo.png" alt="Orked Mall Logo">
+        <img src="images/orked.png" alt="Orked Mall Logo">
     </a>
 
     <h1>Admin Portal</h1>

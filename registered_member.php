@@ -21,12 +21,11 @@
       background-color: #ffffff;
       color: var(--text-main);
       margin: 0;
-      display: flex; /* Flex horizontal layout */
-      height: 100vh; /* Set total body to viewport height */
-      overflow: hidden; /* Prevent body scroll, use inner scroll instead */
+      display: flex; 
+      height: 100vh; 
+      overflow: hidden; 
     }
 
-    /* Fixed Sidebar - Max Height of Page */
     .sidebar {
       width: 260px;
       min-width: 260px;
@@ -70,16 +69,14 @@
       box-shadow: 0 2px 4px rgba(0,0,0,0.05);
     }
 
-    /* Right Side Wrapper */
     .content-wrapper {
       flex: 1;
       display: flex;
       flex-direction: column;
       height: 100vh;
-      overflow-y: auto; /* Scroll only the content area */
+      overflow-y: auto; 
     }
 
-    /* Seamless Top Bar - No bottom line */
     .top-bar {
       width: 100%;
       height: 70px;
@@ -89,7 +86,6 @@
       padding: 0 60px;
       box-sizing: border-box;
       background-color: #ffffff;
-      /* Border removed for seamless look */
     }
 
     .logout-btn-top {
@@ -110,7 +106,6 @@
       background-color: #fff9fa;
     }
 
-    /* Main Workspace */
     .main {
       padding: 20px 60px 40px 60px;
     }
@@ -141,7 +136,6 @@
       border-color: var(--accent-rose);
     }
 
-    /* Modern Table */
     table {
       width: 100%;
       border-collapse: collapse;
@@ -168,8 +162,7 @@
     tr:hover td {
       background-color: #fcfcfc;
     }
-
-    /* High-Clarity Status Badges */
+    
     .status-badge {
       font-weight: 600;
       font-size: 11px;

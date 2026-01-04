@@ -7,7 +7,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --brand-sand: #ada192;
+      --brand-sand: #e5dcd6;
       --brand-rose: #e19bb1;
       --text-dark: #333333;
       --border-light: #e0e0e0;
@@ -29,7 +29,7 @@
         justify-content: space-between;
         align-items: center;
         padding: 15px 60px;
-        background-color: var(--brand-sand);
+        background: linear-gradient(135deg, var(--brand-sand) 0%, #c5b9ac 100%);
         position: sticky;
         top: 0;
         z-index: 1000;
@@ -42,6 +42,7 @@
         display: flex;
         align-items: center;
         gap: 12px;
+        height: 50px; 
     }
 
     .logo span {
@@ -49,11 +50,14 @@
         letter-spacing: 2px;
         text-transform: uppercase;
         font-weight: 600;
+        line-height: 1;
     }
 
     .logo-img {
-        height: 40px;
+        height: 50px;       
         width: auto;
+        display: block;
+        image-rendering: -webkit-optimize-contrast; 
     }
 
     .icon-btn {
@@ -241,8 +245,7 @@
 <header class="topbar">
     <div class="logo">
         <a href="index.html">
-            <img src="images/logo.png" class="logo-img">
-            <span>Orked Mall</span>
+            <img src="images/orked.png" class="logo-img">
         </a>
     </div>
 
