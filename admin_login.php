@@ -107,7 +107,7 @@
 <body>
 
 <div class="login-container">
-    <a href="index.html">
+    <a href="index.php">
         <img src="images/orked.png" alt="Orked Mall Logo">
     </a>
 
@@ -119,7 +119,7 @@
         <button type="submit">Secure Login</button>
     </form>
 
-    <a href="index.html" class="back-home">← Back to Main Site</a>
+    <a href="index.php" class="back-home">← Back to Main Site</a>
 </div>
 
 </body>

@@ -20,7 +20,7 @@ if ($result->num_rows > 0) {
 
 <header class="topbar">
     <div class="logo">
-        <a href="index.html">
+        <a href="index.php">
             <img src="images/orked.png" class="logo-img">
         </a>
     </div>
@@ -30,7 +30,7 @@ if ($result->num_rows > 0) {
         <div class="dropdown">
             <button class="menu-btn" onclick="toggleMenu('menuList')">☰</button>
             <div id="menuList" class="menu-list">
-                <a href="index.html">Home</a>
+                <a href="index.php">Home</a>
                 <a href="about.html">About Us</a>
                 <a href="membership_info.php">Membership Info</a>
             </div>
