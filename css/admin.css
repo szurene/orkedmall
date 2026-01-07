@@ -1,0 +1,188 @@
+/* Variables */
+:root {
+    --sidebar-color: #e5dcd6;
+    --accent-rose: #e19bb1;
+    --success-green: #1b5e20;
+    --error-red: #b71c1c;
+    --text-main: #333333;
+    --border-light: #eeeeee;
+}
+
+/* Global Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #ffffff;
+    color: var(--text-main);
+    margin: 0;
+    display: flex; 
+    height: 100vh; 
+    overflow: hidden; 
+}
+
+/* Sidebar */
+.sidebar {
+    width: 260px;
+    min-width: 260px;
+    background-color: var(--sidebar-color);
+    padding: 40px 25px;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid rgba(0,0,0,0.05);
+    height: 100vh; 
+    box-sizing: border-box;
+}
+
+.sidebar h2 {
+    font-size: 16px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 40px;
+    color: var(--text-main);
+    border-left: 4px solid var(--accent-rose);
+    padding-left: 15px;
+}
+
+.nav-link {
+    margin-bottom: 10px;
+    font-weight: 400;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 12px 15px;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    color: var(--text-main);
+    text-decoration: none;
+}
+
+.nav-link:hover { background-color: rgba(255, 255, 255, 0.5); }
+.nav-link.active { background-color: #ffffff; font-weight: 600; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+
+/* Main Content Area */
+.content-wrapper { flex: 1; display: flex; flex-direction: column; height: 100vh; overflow-y: auto; }
+
+.top-bar {
+    width: 100%;
+    height: 70px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0 60px;
+    box-sizing: border-box;
+    background-color: #ffffff;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.logout-btn-top {
+    background: transparent;
+    color: var(--text-main);
+    border: 1px solid #ddd;
+    padding: 8px 24px;
+    border-radius: 25px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.main { padding: 20px 60px 40px 60px; }
+.main h1 { font-size: 24px; font-weight: 600; margin-bottom: 30px; }
+
+/* Search Bar */
+.search-bar { margin-bottom: 30px; }
+.search-bar input {
+    width: 100%;
+    max-width: 400px;
+    padding: 12px 20px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+    outline: none;
+}
+
+/* Table Design */
+table { width: 100%; border-collapse: collapse; min-width: 800px; }
+th {
+    text-align: left;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #999;
+    padding: 15px 10px;
+    border-bottom: 2px solid var(--border-light);
+    cursor: pointer;
+}
+th:hover { color: var(--accent-rose); }
+th.sort-asc::after { content: " ↑"; }
+th.sort-desc::after { content: " ↓"; }
+
+td { padding: 18px 10px; font-size: 14px; border-bottom: 1px solid var(--border-light); }
+
+/* Badges */
+.status-badge {
+    font-weight: 600;
+    font-size: 11px;
+    padding: 5px 12px;
+    border-radius: 4px;
+    display: inline-block;
+    min-width: 85px;
+    text-align: center;
+}
+.status-paid, .status-active { background-color: #e8f5e9; color: var(--success-green); border: 1px solid #c8e6c9; }
+.status-pending, .status-inactive { background-color: #ffebee; color: var(--error-red); border: 1px solid #ffcdd2; }
+
+/* Action Buttons */
+.action-buttons button {
+    background: none;
+    padding: 6px 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    margin-right: 5px;
+}
+.edit-btn { border: 1px solid var(--success-green); color: var(--success-green); }
+.view-btn { border: 1px solid var(--accent-rose); color: var(--accent-rose); }
+
+/* Modal Styling */
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 1000; 
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.5); 
+}
+.modal-content {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 30px;
+    border-radius: 12px;
+    width: 400px;
+    position: relative;
+}
+.close-modal {
+    position: absolute;
+    right: 20px; top: 15px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #999;
+}
+.form-group { margin-bottom: 15px; }
+.form-group label { display: block; font-size: 12px; color: #666; margin-bottom: 5px; }
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+.save-btn {
+    background-color: var(--success-green);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    width: 100%;
+    font-weight: 600;
+}
+.footer { color: #aaaaaa; text-align: center; padding: 30px; font-size: 12px; margin-top: auto; }
