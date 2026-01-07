@@ -7,13 +7,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --brand-sand: #ada192;
+            --brand-sand: #e5dcd6;
             --brand-rose: #e19bb1;
             --text-dark: #333333;
             --border-light: #e0e0e0;
             --white: #ffffff;
             --gray-bg: #f9f9f9;
         }
+
 
         body {
             font-family: 'Poppins', sans-serif;
@@ -23,7 +24,7 @@
             line-height: 1.6;
         }
 
-        /* NAVIGATION  */
+        /* NAVIGATION */
         .topbar {
             display: flex;
             justify-content: space-between;
@@ -237,7 +238,7 @@
 
 <header class="topbar">
     <div class="logo">
-        <a href="index.html">
+        <a href="index.php">
             <img src="images/orked.png" class="logo-img">
         </a>
     </div>
