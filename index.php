@@ -332,6 +332,31 @@
         .then(data => {
             document.getElementById("footer-placeholder").innerHTML = data;
         });
+
+    // Example AJAX login functionality
+document.querySelector('.login-box button').addEventListener('click', function() {
+    const email = document.querySelector('.login-box input[type="text"]').value;
+    const password = document.querySelector('.login-box input[type="password"]').value;
+    
+    // Create AJAX request
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', 'login_process.php', true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    
+    xhr.onload = function() {
+        if (xhr.status === 200) {
+            const response = JSON.parse(xhr.responseText);
+            if (response.success) {
+                // Redirect or update UI
+                window.location.href = 'member_dashboard.php';
+            } else {
+                alert('Login failed: ' + response.message);
+            }
+        }
+    };
+    
+    xhr.send('email=' + encodeURIComponent(email) + '&password=' + encodeURIComponent(password));
+});
 </script>
 
 </body>
