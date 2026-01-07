@@ -100,8 +100,7 @@ if ($result->num_rows > 0) {
 
 <script src="js/register.js"></script>
 <div id="footer-placeholder">
-    <script>
-fetch("footer.html")
+<script>fetch("footer.html")
     .then(res => res.text())
     .then(data => {
         document.getElementById("footer-placeholder").innerHTML = data;

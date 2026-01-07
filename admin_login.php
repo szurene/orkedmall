@@ -113,7 +113,7 @@
 
     <h1>Admin Portal</h1>
 
-    <form action="admin-dashboard.html" method="POST">
+    <form action="admin_login_process.php" method="POST">
         <input type="text" name="username" placeholder="Admin Username" required>
         <input type="password" name="password" placeholder="Password" required>
         <button type="submit">Secure Login</button>

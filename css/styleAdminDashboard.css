@@ -1,0 +1,64 @@
+/* Dashboard Container */
+.dashboard-container {
+    padding: 20px 60px 40px 60px;
+}
+
+/* Charts Section */
+.charts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+/* Individual Chart Box */
+.chart-box {
+    background: #ffffff;
+    border: 1px solid var(--border-light);
+    border-radius: 10px;
+    padding: 25px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+}
+
+.chart-box h3 {
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    color: var(--text-main);
+    border-left: 4px solid var(--accent-rose);
+    padding-left: 12px;
+}
+
+/* Summary Cards */
+.summary {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    margin-bottom: 40px;
+}
+
+.summary-card {
+    background: #ffffff;
+    border: 1px solid var(--border-light);
+    border-radius: 10px;
+    padding: 25px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+}
+
+.summary-card h2 {
+    font-size: 34px;
+    margin: 0;
+    color: var(--accent-rose);
+    font-weight: 600;
+}
+
+.summary-card p {
+    margin-top: 8px;
+    font-size: 13px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #777;
+}
