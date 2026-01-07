@@ -99,7 +99,15 @@ if ($result->num_rows > 0) {
 </div>
 
 <script src="js/register.js"></script>
-<div id="footer"></div>
+<div id="footer-placeholder">
+    <script>
+fetch("footer.html")
+    .then(res => res.text())
+    .then(data => {
+        document.getElementById("footer-placeholder").innerHTML = data;
+    });
+</script>
+</div>
 
 </body>
 </html>
