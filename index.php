@@ -24,7 +24,7 @@
             line-height: 1.6;
         }
 
-        /* NAVIGATION  */
+        /* NAVIGATION */
         .topbar {
             display: flex;
             justify-content: space-between;
