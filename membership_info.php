@@ -244,7 +244,7 @@
 
 <header class="topbar">
     <div class="logo">
-        <a href="index.html">
+        <a href="index.php">
             <img src="images/orked.png" class="logo-img">
         </a>
     </div>
