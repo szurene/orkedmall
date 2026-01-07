@@ -253,7 +253,7 @@
         <div class="dropdown">
             <button class="icon-btn" onclick="toggleDrop()">☰</button>
             <div id="menuList" class="dropdown-menu">
-                <a href="index.html">Home</a>
+                <a href="index.php">Home</a>
                 <a href="about.html">About Us</a>
             </div>
         </div>
