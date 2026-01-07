@@ -247,8 +247,8 @@
         <div class="dropdown">
             <button class="icon-btn" onclick="toggleDrop('menuList')">☰</button>
             <div id="menuList" class="dropdown-menu">
-                <a href="about.html">About Us</a>
                 <a href="membership_info.php">Membership Info</a>
+                <a href="about.html">About Us</a>
             </div>
         </div>
 

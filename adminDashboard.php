@@ -57,7 +57,6 @@ while ($row = $typeQuery->fetch_assoc()) {
     <h2>Mall Registry</h2>
     <a href="admin_dashboard.php" class="nav-link active">Dashboard Overview</a>
     <a href="registered_member.php" class="nav-link">Member Database</a>
-    <a href="#" class="nav-link">System Settings</a>
 </div>
 
 <div class="content-wrapper">

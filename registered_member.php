@@ -36,7 +36,6 @@ $result = $conn->query($sql);
     <h2>Mall Registry</h2>
     <a href="adminDashboard.php" class="nav-link">Dashboard Overview</a>
     <a href="registered_member.php" class="nav-link active">Member Database</a>
-    <a href="#" class="nav-link">System Settings</a>
 </div>
 
 <div class="content-wrapper">
