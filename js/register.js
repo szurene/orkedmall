@@ -49,3 +49,22 @@ function validateRegister() {
 
     return passOK && confirmOK;
 }
+
+// TOGGLE HAMBURGER MENU
+function toggleMenu(id) {
+    const menu = document.getElementById(id);
+    menu.classList.toggle("show");
+}
+
+// Close the menu if clicked outside
+window.onclick = function(event) {
+    if (!event.target.matches('.menu-btn')) {
+        const menus = document.getElementsByClassName("menu-list");
+        for (let i = 0; i < menus.length; i++) {
+            if (menus[i].classList.contains('show')) {
+                menus[i].classList.remove('show');
+            }
+        }
+    }
+};
+

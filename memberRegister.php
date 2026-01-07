@@ -1,4 +1,14 @@
-<?php include 'db.php'; ?>
+<?php include 'db.php'; 
+// Fetch membership types
+$membershipTypes = [];
+$result = $conn->query("SELECT mTypeID, mTypeName FROM membership_type");
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $membershipTypes[] = $row;
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,11 +42,18 @@
     <h2>Member Registration</h2>
     <form action="memberRegisterProcess.php" method="POST" id="registerForm" onsubmit="return validateRegister();">
         
-        <label>First Name <span class="required-label">*Required</span></label>
-        <input type="text" name="firstName" required>
+        <div class="name-row">
+            <div class="name-field">
+                <label>First Name <span class="required-label">*Required</span></label>
+                <input type="text" name="firstName" required>
+            </div>
 
-        <label>Last Name <span class="required-label">*Required</span></label>
-        <input type="text" name="lastName" required>
+            <div class="name-field">
+                <label>Last Name <span class="required-label">*Required</span></label>
+                <input type="text" name="lastName" required>
+            </div>
+        </div>
+
 
         <label>Email <span class="required-label">*Required</span></label>
         <input type="email" name="email" required>
@@ -66,6 +83,16 @@
 
         <p id="passwordError" class="error-text"></p>
         <p id="confirmError" class="error-text"></p>
+
+        <label>Select Membership Type <span class="required-label">*Required</span></label>
+        <div class="membership-options">
+            <?php foreach($membershipTypes as $type): ?>
+                <label class="membership-box">
+                <input type="radio" name="membershipType" value="<?= $type['mTypeID'] ?>" required>
+                <span class="membership-text"><?= $type['mTypeName'] ?></span>
+                </label>
+            <?php endforeach; ?>
+        </div>
 
         <button type="submit">Register</button>
     </form>
