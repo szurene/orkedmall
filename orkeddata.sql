@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 25, 2025 at 02:29 PM
+-- Generation Time: Jan 07, 2026 at 06:17 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -60,7 +60,13 @@ INSERT INTO `member` (`memberID`, `email`, `firstName`, `lastName`, `password`, 
 (1, 'hana@gmail.com', 'Nur', 'Hanah', '$2y$10$3ZwOd4XxHRSHfVkeH.6bg.4B2aeL7P6bENBMGLuVblfz5kuBGhTAC', '0155454125', 'No. 21, Jalan SG 2/1, Taman Sri Gombak', 'Batu Caves', '68100', NULL),
 (2, 'n.hana2@gmail.com', 'Nur', 'Rafhanah', '$2y$10$tRdPRA.Rxvq6Q34qZwKwqOZ5GEc59lC2ZLbxdLwVi8U.VEm63vVWi', '0155454125', 'No. 21, Jalan SG 2/1, Taman Sri Gombak', 'Batu Caves', '68100', NULL),
 (3, 'ahmad1@gmail.com', 'Ahmad', 'Han', '$2y$10$KMm8cVXjZuDGCMJS.og78ujWjiUk3iaVFDMc/FjLcYTPYaTRlLUHi', '0155454125', 'No. 21, Jalan SG 2/1, Taman Sri Gombak', 'Batu Caves', '68100', 'Selangor'),
-(5, 'amirul21@gmail.com', 'Nur', 'Amirul', '$2y$10$PrTCu9p.W5c/hv/2I2/eoeeaN2.9CNtvsNvrTn.hzI.wr3SQt8niO', '0155454125', 'No. 21, Jalan SG 2/1, Taman Sri Gombak', 'Batu Caves', '68100', 'Selangor');
+(5, 'amirul21@gmail.com', 'Nur', 'Amirul', '$2y$10$PrTCu9p.W5c/hv/2I2/eoeeaN2.9CNtvsNvrTn.hzI.wr3SQt8niO', '0155454125', 'No. 21, Jalan SG 2/1, Taman Sri Gombak', 'Batu Caves', '68100', 'Selangor'),
+(6, 'huda@gmail.com', 'Huda', 'Willson', '$2y$10$PWiYI230s2iTyH65uLK/Pe7z.96HvD3Dkd9ZODrPId1/GUMSxI8a.', '0155454125', 'No. 21, Jalan SG 2/1, Taman Sri Gombak', 'Batu Caves', '68100', 'Selangor'),
+(7, 'jane@gmail.com', 'Nur', 'Jane', '$2y$10$nJvbqASK/t6lYB4bb0b8MedKPN1l1GbnVYr4qLiV7w2A1QaG3aFx6', '0155454125', 'No. 21, Jalan SG 2/1, Taman Sri Gombak', 'Batu Caves', '68100', 'Selangor'),
+(8, 'ahmadW@gmail.com', 'Ahmad', 'Will', '$2y$10$3M4ByOgOBSDTQFBVG.cPROpcIYN.1AnJo3L5RNeZYWOi53ph4PLg2', '0155454125', 'No. 21, Jalan SG 2/1, Taman Sri Gombak', 'Batu Caves', '68100', 'Selangor'),
+(9, 'jas@gmail.com', 'jasni', 'zain', '$2y$10$w03SEDjelzHqbCKBa8o9tOuJr17d6L4Y1cK1uz1ld5WFvIslhLQp.', '0155454125', 'No. 21, Jalan SG 2/1, Taman Sri Gombak', 'Batu Caves', '68100', 'Selangor'),
+(10, 'han@gmail.com', 'Ahmad', 'Han', '$2y$10$Q62HiQx6NUFYpkTN4EQCie9sfnJcKcKTVVSmbY0AqtMopjLbRMhoi', '0155454125', 'No. 21, Jalan SG 2/1, Taman Sri Gombak', 'Batu Caves', '68100', 'Selangor'),
+(11, 'jay@gmail.com', 'Jay', 'Park', '$2y$10$6vBx8qWsnOOG5l/xRy0sFe2ltmZEsSLfXHvuH/0UFn8vW1owf6GW6', '0155454125', 'No. 21, Jalan SG 2/1, Taman Sri Gombak', 'Batu Caves', '68100', 'Selangor');
 
 -- --------------------------------------------------------
 
@@ -78,6 +84,18 @@ CREATE TABLE `membership` (
   `paymentID` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `membership`
+--
+
+INSERT INTO `membership` (`membershipID`, `startDate`, `endDate`, `memberID`, `mTypeID`, `adminID`, `paymentID`) VALUES
+(2, '2026-01-07', '2027-01-07', 6, 1, NULL, NULL),
+(3, '2026-01-07', '2027-01-07', 7, 1, NULL, NULL),
+(4, '2026-01-07', '2027-01-07', 8, 1, NULL, NULL),
+(5, '2026-01-07', '2027-01-07', 9, 1, NULL, NULL),
+(6, '2026-01-07', '2028-01-07', 10, 2, NULL, NULL),
+(7, '2026-01-07', '2028-01-07', 11, 2, NULL, NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -90,6 +108,14 @@ CREATE TABLE `membership_type` (
   `price` decimal(10,2) NOT NULL,
   `duration` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `membership_type`
+--
+
+INSERT INTO `membership_type` (`mTypeID`, `mTypeName`, `price`, `duration`) VALUES
+(1, 'Platinum', 160.00, 12),
+(2, 'Gold', 240.00, 24);
 
 -- --------------------------------------------------------
 
@@ -160,19 +186,19 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `member`
 --
 ALTER TABLE `member`
-  MODIFY `memberID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `memberID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `membership`
 --
 ALTER TABLE `membership`
-  MODIFY `membershipID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `membershipID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `membership_type`
 --
 ALTER TABLE `membership_type`
-  MODIFY `mTypeID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `mTypeID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `payment`

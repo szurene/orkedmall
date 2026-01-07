@@ -74,14 +74,6 @@ body {
 }
 
 /* Register form container styling */
-.register-container {
-    max-width: 500px;
-    margin: 50px auto;
-    padding: 25px;
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-}
 
 .register-container h2 {
     text-align: center;
@@ -151,7 +143,7 @@ body {
 
 /* Form container */
 .register-container {
-    max-width: 600px;
+    max-width: 1200px;
     margin: 50px auto;
     background-color: var(--brand-sand);
     padding: 40px;
@@ -173,7 +165,7 @@ body {
 }
 
 .required-label {
-    color: var(--brand-rose);
+    color: var(#d90711);
     margin-left: 5px;
 }
 
@@ -201,6 +193,21 @@ body {
     cursor: pointer;
     transition: 0.3s;
 }
+
+/* Row container for first and last name */
+.name-row {
+    display: flex;
+    gap: 20px; /* spacing between fields */
+    margin-bottom: 20px;
+}
+
+/* Each field takes equal space */
+.name-row .name-field {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
 
 /* Address fields inline */
 .address-box {
@@ -242,6 +249,74 @@ body {
     margin-bottom: 15px;
     display: none;
 }
+
+/* Membership radio buttons styling */
+.membership-options {
+    display: flex;
+    gap: 20px; /* space between options */
+    margin-bottom: 20px;
+}
+
+.radio-label {
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+}
+
+.radio-label input[type="radio"] {
+    margin-right: 8px;
+}
+
+/* Membership boxes container */
+.membership-options {
+    display: flex;
+    gap: 20px;             /* space between options */
+    margin-bottom: 20px;
+    justify-content: center; /* CENTER the boxes horizontally */
+    flex-wrap: wrap;         /* allow wrapping on small screens */
+}
+
+/* Individual membership box */
+.membership-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #ccc;
+    padding: 15px 25px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s;
+    user-select: none;
+    font-weight: 500;
+    background-color: #f9f9f9;
+    text-align: center;
+    min-width: 120px;       /* optional: make all boxes same width */
+}
+
+/* Hide default radio button */
+.membership-box input[type="radio"] {
+    display: none;
+}
+
+/* Text inside the box */
+.membership-box .membership-text {
+    pointer-events: none;   /* allow clicking the label */
+}
+
+/* Checked state */
+.membership-box input[type="radio"]:checked + .membership-text {
+    color: #fff;
+    background-color: #e91e63;
+    border-radius: 8px;
+    padding: 5px 15px;
+}
+
+/* Hover effect */
+.membership-box:hover {
+    border-color: #e91e63;
+    background-color: #ffe6f0;
+}
+
 
 .register-container button:hover {
     background-color: var(--brand-rose);
