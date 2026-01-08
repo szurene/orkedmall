@@ -1,0 +1,90 @@
+.payment-wrapper {
+    max-width: 1100px;
+    margin: 60px auto;
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 40px;
+    background: #fff;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.payment-summary h2,
+.payment-method h2 {
+    margin-bottom: 20px;
+}
+
+.summary-box {
+    background: #f6f8fb;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+}
+
+.summary-box p {
+    margin: 8px 0;
+}
+
+.total {
+    background: #e7f8ee;
+    padding: 15px;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.total span {
+    color: #2e7d32;
+}
+
+.method-card {
+    display: flex;
+    align-items: center;
+    padding: 14px 18px;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.method-card input {
+    margin-right: 12px;
+}
+
+.method-card:hover {
+    border-color: #4a6cf7;
+    background: #f4f7ff;
+}
+
+.pay-btn {
+    margin-top: 25px;
+    width: 100%;
+    padding: 15px;
+    background: #4a6cf7;
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.pay-btn:hover {
+    background: #3b5be3;
+}
+
+.cancel-link {
+    display: block;
+    text-align: center;
+    margin-top: 15px;
+    color: #777;
+    text-decoration: none;
+}
+
+@media (max-width: 900px) {
+    .payment-wrapper {
+        grid-template-columns: 1fr;
+    }
+}

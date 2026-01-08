@@ -1,0 +1,103 @@
+.dashboard-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+/* HEADER ACTIONS */
+.header-actions a {
+    margin-left: 15px;
+    padding: 8px 14px;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.profile-btn {
+    background: #eee;
+    color: #333;
+}
+
+.logout-btn {
+    background: #ff5a5a;
+    color: #fff;
+}
+
+/* CATEGORY NAV BAR */
+.category-nav {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    padding: 20px;
+    background: #f8f8f8;
+}
+
+.category-nav button {
+    padding: 10px 18px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    background: #ddd;
+}
+
+.category-nav button.active,
+.category-nav button:hover {
+    background: #e91e63;
+    color: #fff;
+}
+
+/* VOUCHERS */
+.voucher-section h2 {
+    margin-bottom: 20px;
+}
+
+.voucher-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+    gap: 20px;
+}
+
+.voucher-card {
+    background: linear-gradient(135deg, #ff5a5a, #ff8a80);
+    color: #fff;
+    padding: 25px;
+    border-radius: 18px;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    transition: 0.3s;
+}
+
+.voucher-card:hover {
+    transform: translateY(-5px);
+}
+
+.voucher-card h3 {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.voucher-card span {
+    display: block;
+    margin-top: 10px;
+    font-size: 13px;
+    opacity: 0.9;
+}
+
+/* MEMBERSHIP BADGE */
+.badge {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.badge.gold {
+    background: gold;
+    color: #333;
+}
+
+.badge.platinum {
+    background: #555;
+    color: #fff;
+}

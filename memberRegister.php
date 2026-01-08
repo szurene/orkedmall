@@ -31,8 +31,8 @@ if ($result->num_rows > 0) {
             <button class="menu-btn" onclick="toggleMenu('menuList')">☰</button>
             <div id="menuList" class="menu-list">
                 <a href="index.php">Home</a>
-                <a href="membership_info.php">Membership Info</a>
                 <a href="about.html">About Us</a>
+                <a href="membership_info.php">Membership Info</a>
             </div>
         </div>
     </div>
@@ -99,14 +99,7 @@ if ($result->num_rows > 0) {
 </div>
 
 <script src="js/register.js"></script>
-<div id="footer-placeholder">
-<script>fetch("footer.html")
-    .then(res => res.text())
-    .then(data => {
-        document.getElementById("footer-placeholder").innerHTML = data;
-    });
-</script>
-</div>
+<div id="footer"></div>
 
 </body>
 </html>
