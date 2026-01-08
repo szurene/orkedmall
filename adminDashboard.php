@@ -92,10 +92,10 @@ while ($row = $typeQuery->fetch_assoc()) {
                 <h3>Membership Type Distribution</h3>
                 <canvas id="typeChart"></canvas>
             </div>
-        </div>
-        <div id="footer-placeholder"></div>
-        <script>
-        fetch("footer.html")
+         </div>
+         <div id="footer-placeholder"></div>
+         <script>
+         fetch("footer.html")
             .then(res => res.text())
             .then(data => {
                 document.getElementById("footer-placeholder").innerHTML = data;

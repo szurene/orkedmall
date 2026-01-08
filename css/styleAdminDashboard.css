@@ -6,7 +6,7 @@
 /* Charts Section */
 .charts {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1.6fr 1fr;
     gap: 30px;
     margin-bottom: 40px;
 }

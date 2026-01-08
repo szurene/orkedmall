@@ -37,9 +37,9 @@
         }
 
         .login-container img {
-            width: 100px;
+            width: 300px;
             height: auto;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
 
         .login-container h1 {

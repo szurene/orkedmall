@@ -1,5 +1,5 @@
-    :root {
-      --brand-sand: #e5dcd6;
+:root {
+      --brand-sand: #ada192;
       --brand-rose: #e19bb1;
       --text-dark: #333333;
       --border-light: #e0e0e0;
@@ -21,7 +21,7 @@
         justify-content: space-between;
         align-items: center;
         padding: 15px 60px;
-        background: linear-gradient(135deg, var(--brand-sand) 0%, #c5b9ac 100%);
+        background-color: var(--brand-sand);
         position: sticky;
         top: 0;
         z-index: 1000;
@@ -34,7 +34,6 @@
         display: flex;
         align-items: center;
         gap: 12px;
-        height: 50px; 
     }
 
     .logo span {
@@ -42,14 +41,11 @@
         letter-spacing: 2px;
         text-transform: uppercase;
         font-weight: 600;
-        line-height: 1;
     }
 
     .logo-img {
-        height: 50px;       
+        height: 40px;
         width: auto;
-        display: block;
-        image-rendering: -webkit-optimize-contrast; 
     }
 
     .icon-btn {
@@ -150,12 +146,12 @@
 
     /* Front Faces */
     .flip-card-front.platinum {
-      background-image: url('../images/platinum_front.png');
+      background-image: url('images/platinum-front.png');
       color: white;
     }
 
     .flip-card-front.gold {
-      background-image: url('../images/gold_front.png');
+      background-image: url('images/gold-front.png');
       color: white;
     }
 
@@ -168,11 +164,11 @@
     }
 
     .flip-card-back.platinum-back {
-      background-image: url('../images/platinum_back.png');
+      background-image: url('images/platinum-back.png');
     }
 
     .flip-card-back.gold-back {
-      background-image: url('../images/gold_back.png');
+      background-image: url('images/gold-back.png');
     }
 
     .membership-title {
