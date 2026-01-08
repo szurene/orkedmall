@@ -21,7 +21,7 @@
         justify-content: space-between;
         align-items: center;
         padding: 15px 60px;
-        background-color: var(--brand-sand);
+        background: linear-gradient(135deg, #c5b9ac 100%, var(--brand-sand) 0%);
         position: sticky;
         top: 0;
         z-index: 1000;
@@ -34,6 +34,7 @@
         display: flex;
         align-items: center;
         gap: 12px;
+        height: 50px;
     }
 
     .logo span {
@@ -41,11 +42,14 @@
         letter-spacing: 2px;
         text-transform: uppercase;
         font-weight: 600;
+        line-height: 1;
     }
 
     .logo-img {
         height: 40px;
         width: auto;
+        display: block;
+        image-rendering: -webkit-optimize-contrast;
     }
 
     .icon-btn {
@@ -54,6 +58,7 @@
         border: none;
         background: none;
         color: var(--text-dark);
+        padding-bottom: 10px;
         transition: 0.3s;
     }
 
@@ -111,66 +116,71 @@
       padding: 20px;
     }
 
-    .flip-card {
-      width: 437px;
-      height: 310px;
-      perspective: 1000px;
-      flex-shrink: 0;
-    }
+    /* --- Flip Card Core --- */
+.flip-card {
+  width: 437px;
+  height: 310px;
+  perspective: 1000px;
+  flex-shrink: 0;
+  cursor: pointer; /* Indicates the card is clickable */
+}
 
-    .flip-card-inner {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-      transform-style: preserve-3d;
-    }
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+}
 
-    .flip-card:hover .flip-card-inner { transform: rotateY(180deg); }
+/* Logic: Flip when the .flipped class is present */
+.flip-card.flipped .flip-card-inner {
+  transform: rotateY(180deg);
+}
 
-    .flip-card-front, .flip-card-back {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      border-radius: 12px;
-      padding: 35px;
-      box-sizing: border-box;
-      backface-visibility: hidden;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      background-size: cover;
-      background-position: center;
-      overflow: hidden;
-    }
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  padding: 35px;
+  box-sizing: border-box;
+  backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+}
 
-    /* Front Faces */
-    .flip-card-front.platinum {
-      background-image: url('images/platinum-front.png');
-      color: white;
-    }
+/* Front Faces */
+.flip-card-front.platinum {
+  background-image: url('../images/platinum_front.png');
+  color: white;
+}
 
-    .flip-card-front.gold {
-      background-image: url('images/gold-front.png');
-      color: white;
-    }
+.flip-card-front.gold {
+  background-image: url('../images/gold_front.png');
+  color: white;
+}
 
-    /* Back Faces */
-    .flip-card-back {
-      transform: rotateY(180deg);
-      text-align: center;
-      justify-content: center;
-      color: #ffffff;
-    }
+/* Back Faces */
+.flip-card-back {
+  transform: rotateY(180deg);
+  text-align: center;
+  justify-content: center;
+  color: #ffffff;
+}
 
-    .flip-card-back.platinum-back {
-      background-image: url('images/platinum-back.png');
-    }
+.flip-card-back.platinum-back {
+  background-image: url('../images/platinum_back.png');
+}
 
-    .flip-card-back.gold-back {
-      background-image: url('images/gold-back.png');
-    }
-
+.flip-card-back.gold-back {
+  background-image: url('../images/gold_back.png');
+}
     .membership-title {
       font-size: 20px;
       font-weight: 600;
