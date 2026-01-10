@@ -51,18 +51,10 @@ $maxDate = date('Y-m-d', strtotime('-18 years'));
     <h2>Member Registration</h2>
     <form action="memberRegisterProcess.php" method="POST" id="registerForm" onsubmit="return validateRegister();">
         
-        <div class="name-row">
-            <div class="name-field">
-                <label>First Name <span class="required-label">*Required</span></label>
-                <input type="text" name="firstName" required>
-            </div>
-
-            <div class="name-field">
-                <label>Last Name <span class="required-label">*Required</span></label>
-                <input type="text" name="lastName" required>
-            </div>
-        </div>
-
+        <div class="name-field">
+        <label>Full Name <span class="required-label">*Required</span></label>
+    <input type="text" name="fullName" required>
+</div>
 
         <div class="name-row">
             <div class="name-field">

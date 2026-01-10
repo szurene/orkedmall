@@ -9,8 +9,9 @@ if (!isset($_GET['id'])) {
 
 $id = intval($_GET['id']);
 
+// Updated query to select fullName instead of firstName/lastName
 $stmt = $conn->prepare(
-    "SELECT firstName, lastName, phoneNum FROM member WHERE memberID = ?"
+    "SELECT fullName, phoneNum FROM member WHERE memberID = ?"
 );
 $stmt->bind_param("i", $id);
 $stmt->execute();

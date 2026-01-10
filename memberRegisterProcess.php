@@ -8,10 +8,10 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST") {
 }
 
 /* ----------------------
-   MEMBER DATA
+   MEMBER DATA - UPDATED
 ---------------------- */
-$firstname = $_POST['firstName'];
-$lastname  = $_POST['lastName'];
+// Combine into one variable from the single form input
+$fullName  = $_POST['fullName']; 
 $email     = $_POST['email'];
 $phoneNum  = $_POST['phoneNum'];
 $street    = $_POST['street'];
@@ -24,14 +24,13 @@ $password  = $_POST['password'];
 $confirm   = $_POST['confirm'];
 
 /* ----------------------
-   AGE VALIDATION - MOVED TO TOP
+   AGE VALIDATION
 ---------------------- */
 if (empty($birthDate)) {
     echo "<script>alert('Birth date is required!'); window.history.back();</script>";
     exit;
 }
 
-// Calculate age
 $birthDateObj = new DateTime($birthDate);
 $today = new DateTime();
 $age = $today->diff($birthDateObj)->y;
@@ -78,17 +77,20 @@ if ($resultCheck->num_rows > 0) {
 }
 
 /* ----------------------
-   INSERT MEMBER
+   INSERT MEMBER - UPDATED COLUMN NAMES
 ---------------------- */
-$sqlMember = "INSERT INTO member
-(firstName, lastName, email, phoneNum, street, city, postcode, state, birthDate, password)
-VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+// Removed firstName, lastName -> Added fullName
+$sqlMember = "INSERT INTO member 
+(fullName, email, phoneNum, street, city, postcode, state, birthDate, password) 
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 $stmtMember = $conn->prepare($sqlMember);
+
+// Updated bind_param: removed one "s" (now 9 total strings)
 $stmtMember->bind_param(
-    "ssssssssss",
-    $firstname, $lastname, $email, $phoneNum,
-    $street, $city, $postcode, $state,
+    "sssssssss", 
+    $fullName, $email, $phoneNum, 
+    $street, $city, $postcode, $state, 
     $birthDate, $hashedPassword
 );
 
@@ -148,15 +150,15 @@ $_SESSION['membershipID'] = $membershipID;
 $_SESSION['amount']       = $amount;
 
 /* ----------------------
-   SEND CONFIRMATION EMAIL
+   SEND CONFIRMATION EMAIL - UPDATED
 ---------------------- */
-require_once 'mailer/config.php'; // Adjust path as needed
+require_once 'mailer/config.php';
 
-if (sendRegistrationEmail($email, $firstname, $lastname, $memberID, $startDate, $endDate, $durationMonths)) {
+// Updated to pass $fullName instead of $firstname, $lastname
+if (sendRegistrationEmail($email, $fullName, $memberID, $startDate, $endDate, $durationMonths)) {
     $_SESSION['email_sent'] = true;
 } else {
     $_SESSION['email_sent'] = false;
-    // Log error but don't interrupt registration
     error_log("Failed to send registration email to: $email");
 }
 

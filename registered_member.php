@@ -3,7 +3,8 @@ include 'db.php';
 
 $search = isset($_GET['search']) ? $conn->real_escape_string($_GET['search']) : '';
 
-$sql = "SELECT m.memberID, m.firstName, m.lastName, m.phoneNum,
+// 1. SELECT fullName instead of separate names
+$sql = "SELECT m.memberID, m.fullName, m.phoneNum,
                IFNULL(mt.mTypeName, 'No Plan') AS tier, 
                IFNULL(p.paymentStatus, 'Pending') AS payStatus,
                ms.endDate
@@ -13,8 +14,8 @@ $sql = "SELECT m.memberID, m.firstName, m.lastName, m.phoneNum,
         LEFT JOIN payment p ON ms.membershipID = p.membershipID";
 
 if ($search !== '') {
-    $sql .= " WHERE m.firstName LIKE '%$search%'
-              OR m.lastName LIKE '%$search%'
+    // 2. Search logic updated for fullName
+    $sql .= " WHERE m.fullName LIKE '%$search%'
               OR m.phoneNum LIKE '%$search%'
               OR m.memberID LIKE '%$search%'";
 }
@@ -73,7 +74,7 @@ $result = $conn->query($sql);
                 ?>
                 <tr>
                     <td>#OM-M<?= $row['memberID'] ?></td>
-                    <td><?= htmlspecialchars($row['firstName'].' '.$row['lastName']) ?></td>
+                    <td><?= htmlspecialchars($row['fullName']) ?></td>
                     <td><?= htmlspecialchars($row['tier']) ?></td>
                     <td><?= htmlspecialchars($row['phoneNum'] ?? 'N/A') ?></td>
                     <td><span class="status-badge <?= $payClass ?>"><?= $row['payStatus'] ?></span></td>
@@ -100,12 +101,8 @@ $result = $conn->query($sql);
 
         <form id="modalForm">
             <div class="form-group">
-                <label>First Name</label>
-                <input type="text" id="editFirstName">
-            </div>
-            <div class="form-group">
-                <label>Last Name</label>
-                <input type="text" id="editLastName">
+                <label>Full Name</label>
+                <input type="text" id="editFullName">
             </div>
             <div class="form-group">
                 <label>Phone Number</label>
