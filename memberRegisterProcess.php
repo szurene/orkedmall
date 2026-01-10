@@ -148,6 +148,19 @@ $_SESSION['membershipID'] = $membershipID;
 $_SESSION['amount']       = $amount;
 
 /* ----------------------
+   SEND CONFIRMATION EMAIL
+---------------------- */
+require_once 'mailer/config.php'; // Adjust path as needed
+
+if (sendRegistrationEmail($email, $firstname, $lastname, $memberID, $startDate, $endDate, $durationMonths)) {
+    $_SESSION['email_sent'] = true;
+} else {
+    $_SESSION['email_sent'] = false;
+    // Log error but don't interrupt registration
+    error_log("Failed to send registration email to: $email");
+}
+
+/* ----------------------
    REDIRECT TO PAYMENT
 ---------------------- */
 header("Location: payment.php");
