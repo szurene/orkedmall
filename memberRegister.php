@@ -25,18 +25,18 @@ if ($result->num_rows > 0) {
         </a>
     </div>
 
-    <div class="right-controls">
-        <!-- Hamburger Menu -->
+    <nav class="right-controls">
         <div class="dropdown">
-            <button class="menu-btn" onclick="toggleMenu('menuList')">☰</button>
-            <div id="menuList" class="menu-list">
+            <button class="icon-btn" onclick="toggleDrop()">☰</button>
+            <div id="menuList" class="dropdown-menu">
                 <a href="index.php">Home</a>
                 <a href="about.html">About Us</a>
                 <a href="membership_info.php">Membership Info</a>
             </div>
         </div>
-    </div>
+    </nav>
 </header>
+
 
 <div class="register-container">
     <h2>Member Registration</h2>
@@ -106,6 +106,21 @@ if ($result->num_rows > 0) {
         <button type="submit">Register</button>
     </form>
 </div>
+
+<script>
+    function toggleDrop() {
+        document.getElementById('menuList').classList.toggle('show');
+    }
+
+    window.onclick = function(e) {
+        if (!e.target.matches('.icon-btn')) {
+            const menu = document.getElementById('menuList');
+            if (menu.classList.contains('show')) {
+                menu.classList.remove('show');
+            }
+        }
+    }
+</script>
 
 <script src="js/register.js"></script>
 <div id="footer"></div>
