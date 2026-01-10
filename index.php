@@ -247,8 +247,8 @@
         <div class="dropdown">
             <button class="icon-btn" onclick="toggleDrop('menuList')">☰</button>
             <div id="menuList" class="dropdown-menu">
-                <a href="membership_info.php">Membership Info</a>
                 <a href="about.html">About Us</a>
+                <a href="membership_info.php">Membership Info</a>
             </div>
         </div>
 
@@ -256,9 +256,14 @@
             <button class="icon-btn" onclick="toggleDrop('loginBox')">👤</button>
             <div id="loginBox" class="dropdown-menu login-box">
                 <h4>MEMBER LOGIN</h4>
-                <input type="text" placeholder="Email">
-                <input type="password" placeholder="Password">
-                <button type="button">Login</button>
+                <form action="memberLoginProcess.php" method="POST">
+
+    <input type="email" name="email" placeholder="Email" required>
+    <input type="password" name="password" placeholder="Password" required>
+
+    <button type="submit">Login</button>
+</form>
+
             </div>
         </div>
     </nav>
