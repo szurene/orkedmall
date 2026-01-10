@@ -27,7 +27,7 @@ if ($result->num_rows > 0) {
 
     <nav class="right-controls">
         <div class="dropdown">
-            <button class="icon-btn" onclick="toggleDrop()">☰</button>
+            <button class="icon-btn" onclick="toggleDrop('menuList')">☰</button>
             <div id="menuList" class="dropdown-menu">
                 <a href="index.php">Home</a>
                 <a href="about.html">About Us</a>
@@ -36,7 +36,6 @@ if ($result->num_rows > 0) {
         </div>
     </nav>
 </header>
-
 
 <div class="register-container">
     <h2>Member Registration</h2>
@@ -108,19 +107,25 @@ if ($result->num_rows > 0) {
 </div>
 
 <script>
-    function toggleDrop() {
-        document.getElementById('menuList').classList.toggle('show');
+    function toggleDrop(id) {
+        const target = document.getElementById(id);
+        const isOpen = target.classList.contains('show');
+
+        document.querySelectorAll('.dropdown-menu')
+            .forEach(el => el.classList.remove('show'));
+
+        if (!isOpen) target.classList.add('show');
     }
 
     window.onclick = function(e) {
-        if (!e.target.matches('.icon-btn')) {
-            const menu = document.getElementById('menuList');
-            if (menu.classList.contains('show')) {
-                menu.classList.remove('show');
-            }
+        if (!e.target.matches('.icon-btn') && !e.target.closest('.dropdown-menu')) {
+            document.querySelectorAll('.dropdown-menu')
+                .forEach(el => el.classList.remove('show'));
         }
     }
 </script>
+
+
 
 <script src="js/register.js"></script>
 <div id="footer"></div>

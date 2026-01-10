@@ -141,6 +141,10 @@ body {
 
 .menu-btn { font-size: 24px; cursor: pointer; border: none; background: none; color: var(--text-dark); }
 
+.dropdown-menu { display: none; }
+.show { display: block; }
+.icon-btn { cursor: pointer; }
+
 /* Form container */
 .register-container {
     max-width: 1200px;
