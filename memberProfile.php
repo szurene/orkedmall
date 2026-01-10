@@ -12,7 +12,7 @@ $memberID = $_SESSION['memberID'];
 $sql = "
 SELECT 
     m.firstName, m.lastName, m.email, m.phoneNum,
-    m.street, m.city, m.postcode, m.state,
+    m.street, m.city, m.postcode, m.state, m.birthDate,
     mt.mTypeName,
     ms.endDate
 FROM member m
@@ -82,6 +82,9 @@ $member = $result->fetch_assoc();
 
         <label>Email Address</label>
         <input type="email" name="email" value="<?= htmlspecialchars($member['email']) ?>" disabled required>
+
+        <label>Birth Date</label>
+        <input type="date" name="birthDate" value="<?= htmlspecialchars($member['birthDate']) ?>" disabled required>
 
         <label>Street</label>
         <input type="text" name="street" value="<?= htmlspecialchars($member['street']) ?>" disabled required>
