@@ -17,6 +17,7 @@ $street    = $_POST['street'];
 $city      = $_POST['city'];
 $postcode  = $_POST['postcode'];
 $state     = $_POST['state'];
+$birthDate = $_POST['birthDate'];
 
 $sql = "
 UPDATE member SET
@@ -27,13 +28,14 @@ UPDATE member SET
     street    = ?,
     city      = ?,
     postcode  = ?,
-    state     = ?
+    state     = ?,
+    birthDate = ?
 WHERE memberID = ?
 ";
 
 $stmt = $conn->prepare($sql);
 $stmt->bind_param(
-    "ssssssssi",
+    "sssssssssi",
     $firstName,
     $lastName,
     $email,
@@ -42,6 +44,7 @@ $stmt->bind_param(
     $city,
     $postcode,
     $state,
+    $birthDate,
     $memberID
 );
 

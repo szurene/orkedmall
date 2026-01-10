@@ -1,67 +1,134 @@
-const monthLabels = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const monthlyChartEl = document.getElementById("monthlyChart");
+const typeChartEl = document.getElementById("typeChart");
+const ageChartEl = document.getElementById("ageChart");
 
-// Map the PHP data (monthlyData) to the chart labels
-const monthValues = monthLabels.map((_, i) => monthlyData[i+1] || 0);
+// Keep references to Chart.js instances to destroy them before redrawing
+let monthlyChartInstance = null;
+let typeChartInstance = null;
+let ageChartInstance = null;
 
-/* Bar Chart (Monthly Registered Members) */
-new Chart(document.getElementById('monthlyChart'), {
+/* ==============================
+   AJAX FUNCTION TO FETCH DASHBOARD DATA
+   This is the AJAX part: it calls getChartData.php
+   and updates the summary cards and charts dynamically
+============================== */
+function loadDashboardData() {
+    fetch("getChartData.php")          // <-- AJAX request starts here
+        .then(res => res.json())       // <-- Convert PHP JSON response to JS object
+        .then(data => {
+
+            /* ------------------------------
+               SUMMARY CARDS UPDATE
+               (total members, active members, pending payments)
+            ------------------------------- */
+            document.getElementById("totalMembers").textContent = data.totalMembers;
+            document.getElementById("activeMembers").textContent = data.activeMembers;
+            document.getElementById("pendingPayments").textContent = data.pendingPayments;
+
+            /* ------------------------------
+               DESTROY OLD CHARTS BEFORE REDRAWING
+            ------------------------------- */
+            if(monthlyChartInstance) monthlyChartInstance.destroy();
+            if(typeChartInstance) typeChartInstance.destroy();
+            if(ageChartInstance) ageChartInstance.destroy();
+
+            /* ------------------------------
+               MONTHLY BAR CHART
+            ------------------------------- */
+            monthlyChartInstance = new Chart(monthlyChartEl, {
     type: 'bar',
     data: {
-        labels: monthLabels,
+        labels: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
         datasets: [{
-            data: monthValues,
+            data: data.monthly,
             backgroundColor: '#e19bb1'
         }]
     },
     options: {
-        plugins: { legend: { display: false } },
+        plugins: {
+            legend: { display: false },
+            title: {
+                display: true,
+                text: 'Year ' + new Date().getFullYear(),
+                font: {
+                    family: 'Poppins, sans-serif',
+                    size: 16,    // smaller but readable
+                    weight: '600'
+                },
+                color: '#e91e63',
+                padding: { bottom: 10 }
+            }
+        },
         scales: {
             y: {
                 beginAtZero: true,
-                ticks: { stepSize: 1 }
-            }
-        }
-    }
-});
-
-/* Pie Chart (Membership Type Distribution) */
-const typeLabels = Object.keys(typeData);
-const typeValues = Object.values(typeData);
-
-new Chart(document.getElementById('typeChart'), {
-    type: 'pie',
-    data: {
-        labels: typeLabels,
-        datasets: [{
-            data: typeValues,
-            backgroundColor: ['#e19bb1', '#333']
-        }]
-    },
-    options: {
-        plugins: {
-            tooltip: {
-                callbacks: {
-                    label: ctx => {
-                        let total = ctx.dataset.data.reduce((a,b)=>a+b, 0);
-                        let percent = ((ctx.raw / total) * 100).toFixed(1);
-                        return `${ctx.label}: ${percent}% (${ctx.raw})`;
-                    }
+                ticks: {
+                    font: {
+                        family: 'Poppins, sans-serif',
+                        size: 12,   // smaller tick font
+                        weight: '500'
+                    },
+                    color: '#333'
+                }
+            },
+            x: {
+                ticks: {
+                    font: {
+                        family: 'Poppins, sans-serif',
+                        size: 12,   // smaller tick font
+                        weight: '500'
+                    },
+                    color: '#333'
                 }
             }
         }
     }
 });
 
-/* --- Updated Logic for the Yellow Highlight Area --- */
-const totalsContainer = document.getElementById('typeChartTotals');
-if (totalsContainer) {
-    let grandTotal = typeValues.reduce((a, b) => a + b, 0);
-    
-    // Create strings for each type (e.g., "Gold: 5")
-    let segments = typeLabels.map((label, index) => {
-        return `<strong>${label}:</strong> ${typeValues[index]}`;
-    });
+            /* ------------------------------
+               MEMBERSHIP TYPE PIE CHART
+            ------------------------------- */
+            typeChartInstance = new Chart(typeChartEl, {
+                type: 'pie',
+                data: {
+                    labels: data.type.labels,
+                    datasets: [{
+                        data: data.type.values,
+                        backgroundColor: ['#e0ca1f','#666163','#f1c4d6']
+                    }]
+                }
+            });
 
-    // Combine them with the grand total
-    totalsContainer.innerHTML = segments.join(' &nbsp;|&nbsp; ') + ` &nbsp;&nbsp; (<strong>Total: ${grandTotal}</strong>)`;
+            /* ------------------------------
+               AGE BAR CHART
+            ------------------------------- */
+            ageChartInstance = new Chart(ageChartEl, {
+                type: 'bar',
+                data: {
+                    labels: data.age.labels,
+                    datasets: [{
+                        data: data.age.values,
+                        backgroundColor: '#f1c4d6'
+                    }]
+                },
+                options: {
+                    plugins: { legend: { display: false } },
+                    scales: { y: { beginAtZero: true } }
+                }
+            });
+
+        })
+        .catch(err => console.error("Dashboard error:", err));
 }
+
+/* ------------------------------
+   INITIAL LOAD OF DASHBOARD
+   Calls the AJAX function when page loads
+------------------------------- */
+loadDashboardData();
+
+/* ------------------------------
+   OPTIONAL: AUTO REFRESH
+   Re-fetches data every 1 seconds (1000ms) via AJAX
+------------------------------- */
+setInterval(loadDashboardData, 1000);

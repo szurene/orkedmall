@@ -18,6 +18,7 @@ $street    = $_POST['street'];
 $city      = $_POST['city'];
 $postcode  = $_POST['postcode'];
 $state     = $_POST['state'];
+$birthDate = $_POST['birthDate'];
 
 $password  = $_POST['password'];
 $confirm   = $_POST['confirm'];
@@ -32,6 +33,15 @@ if (!isset($_POST['membershipType'])) {
 $mTypeID = intval($_POST['membershipType']);
 
 /* ----------------------
+   BIRTHDATE CHECK
+---------------------- */
+
+if (empty($birthDate)) {
+    echo "<script>alert('Birth date is required!'); window.history.back();</script>";
+    exit;
+}
+
+/* ----------------------
    PASSWORD CHECK
 ---------------------- */
 if ($password !== $confirm) {
@@ -42,17 +52,35 @@ if ($password !== $confirm) {
 $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
 /* ----------------------
+   CHECK IF EMAIL ALREADY EXISTS
+---------------------- */
+$sqlCheck = "SELECT memberID FROM member WHERE email = ?";
+$stmtCheck = $conn->prepare($sqlCheck);
+$stmtCheck->bind_param("s", $email);
+$stmtCheck->execute();
+$resultCheck = $stmtCheck->get_result();
+
+if ($resultCheck->num_rows > 0) {
+    echo "<script>
+            alert('Email already registered. Please use another email.');
+            window.history.back();
+          </script>";
+    exit();
+}
+
+/* ----------------------
    INSERT MEMBER
 ---------------------- */
 $sqlMember = "INSERT INTO member
-(firstName, lastName, email, phoneNum, street, city, postcode, state, password)
-VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+(firstName, lastName, email, phoneNum, street, city, postcode, state, birthDate, password)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 $stmtMember = $conn->prepare($sqlMember);
 $stmtMember->bind_param(
-    "sssssssss",
+    "ssssssssss",
     $firstname, $lastname, $email, $phoneNum,
-    $street, $city, $postcode, $state, $hashedPassword
+    $street, $city, $postcode, $state,
+    $birthDate, $hashedPassword
 );
 
 if (!$stmtMember->execute()) {
@@ -60,6 +88,11 @@ if (!$stmtMember->execute()) {
 }
 
 $memberID = $conn->insert_id;
+$age = date_diff(date_create($birthDate), date_create('today'))->y;
+if ($age < 18) {
+    echo "<script>alert('You must be at least 18 years old to register.'); window.history.back();</script>";
+    exit;
+}
 
 /* ----------------------
    GET MEMBERSHIP INFO

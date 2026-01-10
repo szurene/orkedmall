@@ -55,8 +55,17 @@ if ($result->num_rows > 0) {
         </div>
 
 
-        <label>Email <span class="required-label">*Required</span></label>
-        <input type="email" name="email" required>
+        <div class="name-row">
+            <div class="name-field">
+                <label>Email <span class="required-label">*Required</span></label>
+                <input type="email" name="email" required>
+            </div>
+
+            <div class="name-field">
+                <label>Birth Date <span>*</span></label>
+                <input type="date" name="birthDate" required>
+            </div>
+        </div>
 
         <label>Phone Number <span class="required-label">*Required</span></label>
         <input type="text" name="phoneNum" required>

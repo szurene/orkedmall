@@ -4,13 +4,30 @@
 }
 
 /* Charts Section */
-.charts {
-    display: grid;
-    grid-template-columns: 1.6fr 1fr;
-    gap: 30px;
-    margin-bottom: 40px;
+.dashboard {
+    width: 100%;
 }
 
+/* each row */
+.chart-row {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+/* normal chart box */
+.chart-box {
+    flex: 1;
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+/* full width chart (row 2) */
+.chart-box.full-width {
+    flex: 100%;
+}
 /* Individual Chart Box */
 .chart-box {
     background: #ffffff;
@@ -29,6 +46,24 @@
     color: var(--text-main);
     border-left: 4px solid var(--accent-rose);
     padding-left: 12px;
+}
+
+.chart-box canvas {
+    width: 100% !important;
+    height: 300px !important;
+}
+
+/* Charts Layout */
+.charts {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+/* Full-width chart (2nd row) */
+.chart-full {
+    grid-column: 1 / span 2;
 }
 
 /* Summary Cards */
