@@ -13,6 +13,7 @@ if ($result->num_rows > 0) {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Member Registration - Orked Mall</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styleRegister.css">
@@ -28,7 +29,7 @@ if ($result->num_rows > 0) {
 
     <nav class="right-controls">
         <div class="dropdown">
-            <button class="icon-btn" onclick="toggleDrop('menuList')">☰</button>
+            <button class="icon-btn" onclick="toggleMenu('menuList')">☰</button>
             <div id="menuList" class="dropdown-menu">
                 <a href="index.php">Home</a>
                 <a href="about.html">About Us</a>
@@ -62,7 +63,7 @@ if ($result->num_rows > 0) {
             </div>
 
             <div class="name-field">
-                <label>Birth Date <span>*</span></label>
+                <label>Birth Date <span class="required-label">*Required</span></label>
                 <input type="date" name="birthDate" required>
             </div>
         </div>
@@ -108,28 +109,48 @@ if ($result->num_rows > 0) {
 </div>
 
 <script>
-    function toggleDrop(id) {
-        const target = document.getElementById(id);
-        const isOpen = target.classList.contains('show');
-
-        document.querySelectorAll('.dropdown-menu')
-            .forEach(el => el.classList.remove('show'));
-
-        if (!isOpen) target.classList.add('show');
+    function toggleMenu(menuId) {
+        document.getElementById(menuId).classList.toggle('show');
     }
 
+    // Close dropdown if clicked outside
     window.onclick = function(e) {
-        if (!e.target.matches('.icon-btn') && !e.target.closest('.dropdown-menu')) {
-            document.querySelectorAll('.dropdown-menu')
-                .forEach(el => el.classList.remove('show'));
+        if (!e.target.matches('.icon-btn')) {
+            const menu = document.getElementById('menuList');
+            if (menu.classList.contains('show')) menu.classList.remove('show');
         }
     }
+    
+    // Password validation function
+    function validateRegister() {
+        const password = document.getElementById('password').value;
+        const confirm = document.getElementById('confirm').value;
+        const passwordError = document.getElementById('passwordError');
+        const confirmError = document.getElementById('confirmError');
+        
+        // Reset errors
+        passwordError.style.display = 'none';
+        confirmError.style.display = 'none';
+        
+        let isValid = true;
+        
+        // Check password length
+        if (password.length < 8) {
+            passwordError.textContent = 'Password must be at least 8 characters long';
+            passwordError.style.display = 'block';
+            isValid = false;
+        }
+        
+        // Check if passwords match
+        if (password !== confirm) {
+            confirmError.textContent = 'Passwords do not match';
+            confirmError.style.display = 'block';
+            isValid = false;
+        }
+        
+        return isValid;
+    }
 </script>
-
-
-
-<script src="js/register.js"></script>
-<div id="footer"></div>
 
 </body>
 </html>
