@@ -1,4 +1,6 @@
-<?php include 'db.php'; 
+<?php 
+include 'db.php'; 
+
 // Fetch membership types
 $membershipTypes = [];
 $result = $conn->query("SELECT mTypeID, mTypeName FROM membership_type");
@@ -7,6 +9,12 @@ if ($result->num_rows > 0) {
         $membershipTypes[] = $row;
     }
 }
+
+// Check for age error from server
+$ageError = isset($_GET['error']) && $_GET['error'] === 'age';
+
+// Calculate max date for 18 years old (optional)
+$maxDate = date('Y-m-d', strtotime('-18 years'));
 ?>
 
 <!DOCTYPE html>
@@ -63,8 +71,11 @@ if ($result->num_rows > 0) {
             </div>
 
             <div class="name-field">
-                <label>Birth Date <span>*</span></label>
-                <input type="date" name="birthDate" required>
+                <label>Birth Date<span class="required-label">*Required</span>
+                <input type="date" name="birthDate" id="birthDate" max="<?php echo $maxDate; ?>" required>
+                <p id="ageError" class="error-text" <?php echo $ageError ? 'style="display: block;"' : ''; ?>>
+                    <?php echo $ageError ? 'You must be 18 years or older to register.' : ''; ?>
+                </p>
             </div>
         </div>
 

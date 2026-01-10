@@ -24,6 +24,24 @@ $password  = $_POST['password'];
 $confirm   = $_POST['confirm'];
 
 /* ----------------------
+   AGE VALIDATION - MOVED TO TOP
+---------------------- */
+if (empty($birthDate)) {
+    echo "<script>alert('Birth date is required!'); window.history.back();</script>";
+    exit;
+}
+
+// Calculate age
+$birthDateObj = new DateTime($birthDate);
+$today = new DateTime();
+$age = $today->diff($birthDateObj)->y;
+
+if ($age < 18) {
+    echo "<script>alert('You must be at least 18 years old to register.'); window.history.back();</script>";
+    exit;
+}
+
+/* ----------------------
    MEMBERSHIP TYPE
 ---------------------- */
 if (!isset($_POST['membershipType'])) {
@@ -31,15 +49,6 @@ if (!isset($_POST['membershipType'])) {
     exit();
 }
 $mTypeID = intval($_POST['membershipType']);
-
-/* ----------------------
-   BIRTHDATE CHECK
----------------------- */
-
-if (empty($birthDate)) {
-    echo "<script>alert('Birth date is required!'); window.history.back();</script>";
-    exit;
-}
 
 /* ----------------------
    PASSWORD CHECK
@@ -88,11 +97,6 @@ if (!$stmtMember->execute()) {
 }
 
 $memberID = $conn->insert_id;
-$age = date_diff(date_create($birthDate), date_create('today'))->y;
-if ($age < 18) {
-    echo "<script>alert('You must be at least 18 years old to register.'); window.history.back();</script>";
-    exit;
-}
 
 /* ----------------------
    GET MEMBERSHIP INFO

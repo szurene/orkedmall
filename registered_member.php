@@ -79,7 +79,6 @@ $result = $conn->query($sql);
                     <td><span class="status-badge <?= $payClass ?>"><?= $row['payStatus'] ?></span></td>
                     <td><span class="status-badge <?= $statusClass ?>"><?= $isActive ? 'Active' : 'Inactive' ?></span></td>
                     <td class="action-buttons">
-                        <button class="edit-btn" onclick="openModal('edit', <?= $row['memberID'] ?>)">Edit</button>
                         <button class="view-btn" onclick="openModal('view', <?= $row['memberID'] ?>)">View</button>
                     </td>
                 </tr>

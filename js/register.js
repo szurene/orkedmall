@@ -1,15 +1,17 @@
 const passwordField = document.getElementById("password");
 const confirmField  = document.getElementById("confirm");
+const birthDateField = document.getElementById("birthDate");
 
 const passwordError = document.getElementById("passwordError");
 const confirmError  = document.getElementById("confirmError");
+const ageError = document.getElementById("ageError");
 
 // PASSWORD STRENGTH CHECK
 passwordField.addEventListener("input", validatePassword);
 confirmField.addEventListener("input", validateConfirm);
+birthDateField.addEventListener("change", validateAge);
 
 function validatePassword() {
-
     const password = passwordField.value;
 
     const hasUpper   = /[A-Z]/.test(password);
@@ -29,9 +31,8 @@ function validatePassword() {
     }
 }
 
-// CONFIRM PASSWORD CHECK (INLINE)
+// CONFIRM PASSWORD CHECK
 function validateConfirm() {
-
     if (confirmField.value !== passwordField.value) {
         confirmError.style.display = "block";
         confirmError.textContent = "Confirm password does not match password.";
@@ -42,12 +43,51 @@ function validateConfirm() {
     }
 }
 
+// AGE VALIDATION (Must be 18+)
+function validateAge() {
+    const birthDate = new Date(birthDateField.value);
+    const today = new Date();
+    
+    // Calculate age
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const monthDiff = today.getMonth() - birthDate.getMonth();
+    const dayDiff = today.getDate() - birthDate.getDate();
+    
+    // Adjust age if birthday hasn't occurred yet this year
+    if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
+        age--;
+    }
+    
+    if (birthDateField.value === "") {
+        ageError.style.display = "none";
+        return true; // Let HTML5 required attribute handle empty field
+    }
+    
+    if (age < 18) {
+        ageError.style.display = "block";
+        ageError.textContent = "You must be 18 years or older to register.";
+        birthDateField.classList.add("error");
+        return false;
+    } else {
+        ageError.style.display = "none";
+        birthDateField.classList.remove("error");
+        return true;
+    }
+}
+
 // FINAL FORM VALIDATION
 function validateRegister() {
     const passOK = validatePassword();
     const confirmOK = validateConfirm();
-
-    return passOK && confirmOK;
+    const ageOK = validateAge();
+    
+    if (!ageOK) {
+        // Scroll to age error for better UX
+        birthDateField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        birthDateField.focus();
+    }
+    
+    return passOK && confirmOK && ageOK;
 }
 
 // TOGGLE HAMBURGER MENU
@@ -68,3 +108,10 @@ window.onclick = function(event) {
     }
 };
 
+// Initialize validation on page load (in case of back navigation with errors)
+document.addEventListener('DOMContentLoaded', function() {
+    // If there's already a value in birth date field, validate it
+    if (birthDateField.value) {
+        validateAge();
+    }
+});

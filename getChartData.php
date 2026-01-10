@@ -67,7 +67,6 @@ $response['type'] = [
    AGE DEMOGRAPHIC
 ======================= */
 $ageGroups = [
-    'Under 18' => 0,
     '18-25' => 0,
     '26-35' => 0,
     '36-45' => 0,
@@ -80,8 +79,7 @@ $q = $conn->query("SELECT birthDate FROM member WHERE birthDate IS NOT NULL");
 while ($row = $q->fetch_assoc()) {
     $age = date_diff(date_create($row['birthDate']), date_create())->y;
 
-    if ($age < 18) $ageGroups['Under 18']++;
-    else if ($age <= 25) $ageGroups['18-25']++;
+    if ($age <= 25) $ageGroups['18-25']++;
     else if ($age <= 35) $ageGroups['26-35']++;
     else if ($age <= 45) $ageGroups['36-45']++;
     else if ($age <= 60) $ageGroups['46-60']++;
