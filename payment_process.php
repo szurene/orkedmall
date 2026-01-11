@@ -90,10 +90,19 @@ if ($details) {
     $startDate      = $details['startDate'];
     $endDate        = $details['endDate'];
     $durationMonths = $details['duration'];
-    $memberID       = $_SESSION['memberID']; // Still in session from register process
+    $memberID       = $_SESSION['memberID']; 
 
-    // 2. Trigger the email
-    if (sendRegistrationEmail($email, $fullName, $memberID, $startDate, $endDate, $durationMonths)) {
+    // 2. Trigger the email - ADDED $amount and $paymentMethod here
+    if (sendRegistrationEmail(
+            $email, 
+            $fullName, 
+            $memberID, 
+            $startDate, 
+            $endDate, 
+            $durationMonths, 
+            $amount, 
+            $paymentMethod
+        )) {
         $_SESSION['email_sent'] = true;
     } else {
         $_SESSION['email_sent'] = false;
