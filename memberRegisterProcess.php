@@ -149,18 +149,6 @@ $_SESSION['memberID']     = $memberID;
 $_SESSION['membershipID'] = $membershipID;
 $_SESSION['amount']       = $amount;
 
-/* ----------------------
-   SEND CONFIRMATION EMAIL - UPDATED
----------------------- */
-require_once 'mailer/config.php';
-
-// Updated to pass $fullName instead of $firstname, $lastname
-if (sendRegistrationEmail($email, $fullName, $memberID, $startDate, $endDate, $durationMonths)) {
-    $_SESSION['email_sent'] = true;
-} else {
-    $_SESSION['email_sent'] = false;
-    error_log("Failed to send registration email to: $email");
-}
 
 /* ----------------------
    REDIRECT TO PAYMENT
