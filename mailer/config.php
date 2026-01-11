@@ -83,7 +83,7 @@ function sendRegistrationEmail($to, $fullName, $memberID, $startDate, $endDate, 
                             </div>
                         </div>
                         
-                        <p>You can now log in to your account and start browse the latest promotions and category-based deals curated specifically for your membership tier.</p>
+                        <p>You can now log in to your account and start browse the latest promotions for your membership tier.</p>
                         <p>Best regards,<br>The Orked Mall Team</p>
                     </div>
                     <div class='footer'>
