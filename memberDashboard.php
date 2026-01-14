@@ -151,6 +151,116 @@ body {
     color: #fff;
     border-radius: 20px;
     font-size: 12px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.badge:hover {
+    background: #e19bb1;
+    color: #333;
+}
+
+/* ============ MODAL (POPUP) ============ */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    z-index: 999;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.modal-box {
+    width: 100%;
+    max-width: 520px;
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+    overflow: hidden;
+    animation: popIn 0.2s ease;
+}
+
+@keyframes popIn {
+    from { transform: scale(0.96); opacity: 0; }
+    to   { transform: scale(1); opacity: 1; }
+}
+
+.modal-header {
+    background: #e5dcd6;
+    padding: 18px 22px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.modal-close {
+    border: none;
+    background: transparent;
+    font-size: 22px;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.modal-body {
+    padding: 22px;
+}
+
+.modal-body p {
+    margin: 10px 0;
+    font-size: 14px;
+    color: #444;
+}
+
+.modal-body .big-discount {
+    font-size: 36px;
+    font-weight: 700;
+    color: #e19bb1;
+    margin: 8px 0 15px;
+}
+
+.modal-body ul {
+    margin: 12px 0 0;
+    padding-left: 18px;
+    color: #444;
+    font-size: 14px;
+}
+
+.modal-footer {
+    padding: 18px 22px;
+    border-top: 1px solid #eee;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.modal-btn {
+    border: none;
+    padding: 10px 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.modal-btn.primary {
+    background: #333;
+    color: #fff;
+}
+
+.modal-btn.primary:hover {
+    background: #e19bb1;
+    color: #333;
+}
+
+.modal-btn.secondary {
+    background: #f1f1f1;
 }
 </style>
 </head>
@@ -194,6 +304,22 @@ alert("<?= $_SESSION['success_message'] ?>");
 <div class="voucher-row">
 
 <?php
+/* Helper: generate expiry date (dummy but realistic) */
+function expiryDateByCategory($category) {
+    $mapDays = [
+        "shoes" => 10,
+        "food" => 5,
+        "beauty" => 14,
+        "electronics" => 7,
+        "fashion" => 12,
+        "sports" => 9,
+        "kids" => 11,
+        "home" => 15
+    ];
+    $days = $mapDays[$category] ?? 7;
+    return date("d M Y", strtotime("+$days days"));
+}
+
 $vouchers = [
     ["shoes","Adidas", $membershipType=="Platinum"?50:30],
     ["shoes","Puma", $membershipType=="Platinum"?45:25],
@@ -232,12 +358,26 @@ $vouchers = [
 ];
 
 foreach ($vouchers as $v) {
+    $category = $v[0];
+    $store = $v[1];
+    $discount = $v[2];
+    $expiry = expiryDateByCategory($category);
+
     echo "
-    <div class='voucher-card {$v[0]}'>
-        <h3>{$v[1]}</h3>
-        <div class='discount'>{$v[2]}% OFF</div>
-        <div class='store'>{$membershipType} Exclusive</div>
-        <div class='badge'>Limited Time</div>
+    <div class='voucher-card {$category}'>
+        <h3>".htmlspecialchars($store)."</h3>
+        <div class='discount'>{$discount}% OFF</div>
+        <div class='store'>".htmlspecialchars($membershipType)." Exclusive</div>
+
+        <div class='badge'
+            data-store=\"".htmlspecialchars($store, ENT_QUOTES)."\"
+            data-category=\"{$category}\"
+            data-discount=\"{$discount}\"
+            data-expiry=\"{$expiry}\"
+            data-membership=\"".htmlspecialchars($membershipType, ENT_QUOTES)."\"
+            onclick='openVoucher(this)'>
+            Limited Time
+        </div>
     </div>
     ";
 }
@@ -245,6 +385,37 @@ foreach ($vouchers as $v) {
 
 </div>
 </section>
+
+<!-- ============ MODAL HTML ============ -->
+<div class="modal-overlay" id="voucherModal" onclick="closeModal(event)">
+    <div class="modal-box">
+        <div class="modal-header">
+            <h3 id="modalTitle">Voucher Details</h3>
+            <button class="modal-close" onclick="closeModal()">×</button>
+        </div>
+
+        <div class="modal-body">
+            <p><strong>Store:</strong> <span id="modalStore"></span></p>
+            <p><strong>Category:</strong> <span id="modalCategory"></span></p>
+            <div class="big-discount" id="modalDiscount"></div>
+            <p><strong>Membership:</strong> <span id="modalMembership"></span></p>
+            <p><strong>Valid Until:</strong> <span id="modalExpiry"></span></p>
+
+            <p><strong>How to claim:</strong></p>
+            <ul>
+                <li>Go to the store counter / cashier.</li>
+                <li>Show this voucher on your Member Dashboard.</li>
+                <li>Show your Membership (Gold/Platinum) status.</li>
+                <li>Voucher is valid for 1 transaction only.</li>
+            </ul>
+        </div>
+
+        <div class="modal-footer">
+            <button class="modal-btn secondary" onclick="closeModal()">Close</button>
+            <button class="modal-btn primary" onclick="closeModal()">Okay</button>
+        </div>
+    </div>
+</div>
 
 <script>
 function filterVoucher(category, btn) {
@@ -260,6 +431,36 @@ function filterVoucher(category, btn) {
         }
     });
 }
+
+/* ============ MODAL LOGIC ============ */
+function openVoucher(el) {
+    const modal = document.getElementById('voucherModal');
+
+    document.getElementById('modalTitle').innerText = "Voucher Details";
+    document.getElementById('modalStore').innerText = el.dataset.store;
+    document.getElementById('modalCategory').innerText = el.dataset.category.toUpperCase();
+    document.getElementById('modalDiscount').innerText = el.dataset.discount + "% OFF";
+    document.getElementById('modalExpiry').innerText = el.dataset.expiry;
+    document.getElementById('modalMembership').innerText = el.dataset.membership;
+
+    modal.style.display = "flex";
+}
+
+function closeModal(e) {
+    const modal = document.getElementById('voucherModal');
+
+    // If user clicks overlay (outside box), close
+    if (e && e.target !== modal) return;
+
+    modal.style.display = "none";
+}
+
+/* Close modal by ESC key */
+document.addEventListener("keydown", function(e) {
+    if (e.key === "Escape") {
+        document.getElementById('voucherModal').style.display = "none";
+    }
+});
 </script>
 
 </body>
