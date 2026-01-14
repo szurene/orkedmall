@@ -10,7 +10,7 @@ if (!isset($_GET['id'])) {
 $id = intval($_GET['id']);
 
 $stmt = $conn->prepare(
-    "SELECT CONCAT(firstName, ' ', lastName) AS fullName, phoneNum
+    "SELECT fullName, phoneNum
      FROM member
      WHERE memberID = ?"
 );
