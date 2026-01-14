@@ -69,6 +69,8 @@ $stmt->execute();
 // Get the paymentID of the new payment
 $paymentID = $stmt->insert_id;
 
+
+
 // Update membership table to link this payment
 $updateSql = "UPDATE membership SET paymentID = ? WHERE membershipID = ?";
 $updateStmt = $conn->prepare($updateSql);
