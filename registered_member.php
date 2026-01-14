@@ -3,8 +3,8 @@ include 'db.php';
 
 $search = isset($_GET['search']) ? $conn->real_escape_string($_GET['search']) : '';
 
-// 1. SELECT fullName instead of separate names
-$sql = "SELECT m.memberID, CONCAT(m.firstName, ' ', m.lastName) AS fullName, m.phoneNum,
+// CORRECTED: Select fullName directly instead of trying to concatenate firstName and lastName
+$sql = "SELECT m.memberID, m.fullName, m.phoneNum,
                IFNULL(mt.mTypeName, 'No Plan') AS tier, 
                IFNULL(p.paymentStatus, 'Pending') AS payStatus,
                ms.endDate
@@ -14,7 +14,7 @@ $sql = "SELECT m.memberID, CONCAT(m.firstName, ' ', m.lastName) AS fullName, m.p
         LEFT JOIN payment p ON ms.membershipID = p.membershipID";
 
 if ($search !== '') {
-    // 2. Search logic updated for fullName
+    // CORRECTED: Search logic using fullName
     $sql .= " WHERE m.fullName LIKE '%$search%'
               OR m.phoneNum LIKE '%$search%'
               OR m.memberID LIKE '%$search%'";
