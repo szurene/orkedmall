@@ -4,7 +4,7 @@ include 'db.php';
 $search = isset($_GET['search']) ? $conn->real_escape_string($_GET['search']) : '';
 
 // 1. SELECT fullName instead of separate names
-$sql = "SELECT m.memberID, m.fullName, m.phoneNum,
+$sql = "SELECT m.memberID, CONCAT(m.firstName, ' ', m.lastName) AS fullName, m.phoneNum,
                IFNULL(mt.mTypeName, 'No Plan') AS tier, 
                IFNULL(p.paymentStatus, 'Pending') AS payStatus,
                ms.endDate
