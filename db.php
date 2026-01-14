@@ -2,7 +2,7 @@
 $host = "localhost";       // your database host
 $user = "root";            // your database username
 $pass = "";                // your database password
-$dbName = "orkeddata";     // your updated database name
+$dbName = "orked_mall";     // your updated database name
 
 // Create connection
 $conn = new mysqli($host, $user, $pass, $dbName);

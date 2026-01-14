@@ -23,7 +23,11 @@ $paymentStatus = "Paid";
 /* =========================
    PREVENT DUPLICATE PAYMENT
 ========================= */
-$checkSql = "SELECT paymentID FROM payment WHERE membershipID = ?";
+$checkSql = "
+    SELECT paymentID 
+    FROM membership 
+    WHERE membershipID = ? AND paymentID IS NOT NULL
+";
 $checkStmt = $conn->prepare($checkSql);
 $checkStmt->bind_param("i", $membershipID);
 $checkStmt->execute();
@@ -57,13 +61,19 @@ $membershipName = $typeRow['mTypeName'];
 /* =========================
    INSERT PAYMENT
 ========================= */
-$sql = "INSERT INTO payment (paymentDate, paymentStatus, amount, paymentMethod, membershipID) VALUES (?, ?, ?, ?, ?)";
+$sql = "INSERT INTO payment (paymentDate, paymentStatus, amount, paymentMethod) VALUES (?, ?, ?, ?)";
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("ssdsi", $paymentDate, $paymentStatus, $amount, $paymentMethod, $membershipID);
+$stmt->bind_param("ssds", $paymentDate, $paymentStatus, $amount, $paymentMethod);
+$stmt->execute();
 
-if (!$stmt->execute()) {
-    die("Payment processing failed: " . $stmt->error);
-}
+// Get the paymentID of the new payment
+$paymentID = $stmt->insert_id;
+
+// Update membership table to link this payment
+$updateSql = "UPDATE membership SET paymentID = ? WHERE membershipID = ?";
+$updateStmt = $conn->prepare($updateSql);
+$updateStmt->bind_param("ii", $paymentID, $membershipID);
+$updateStmt->execute();
 
 /* =========================
    SEND CONFIRMATION EMAIL 

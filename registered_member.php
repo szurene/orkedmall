@@ -11,7 +11,7 @@ $sql = "SELECT m.memberID, m.fullName, m.phoneNum,
         FROM member m
         LEFT JOIN membership ms ON m.memberID = ms.memberID
         LEFT JOIN membership_type mt ON ms.mTypeID = mt.mTypeID
-        LEFT JOIN payment p ON ms.membershipID = p.membershipID";
+        LEFT JOIN payment p ON ms.paymentID = p.paymentID"; 
 
 if ($search !== '') {
     // CORRECTED: Search logic using fullName
