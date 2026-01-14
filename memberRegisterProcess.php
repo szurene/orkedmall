@@ -8,10 +8,10 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST") {
 }
 
 /* ----------------------
-   MEMBER DATA
+   MEMBER DATA - UPDATED
 ---------------------- */
-$firstname = $_POST['firstName'];
-$lastname  = $_POST['lastName'];
+// Combine into one variable from the single form input
+$fullName  = $_POST['fullName']; 
 $email     = $_POST['email'];
 $phoneNum  = $_POST['phoneNum'];
 $street    = $_POST['street'];
@@ -24,6 +24,23 @@ $password  = $_POST['password'];
 $confirm   = $_POST['confirm'];
 
 /* ----------------------
+   AGE VALIDATION
+---------------------- */
+if (empty($birthDate)) {
+    echo "<script>alert('Birth date is required!'); window.history.back();</script>";
+    exit;
+}
+
+$birthDateObj = new DateTime($birthDate);
+$today = new DateTime();
+$age = $today->diff($birthDateObj)->y;
+
+if ($age < 18) {
+    echo "<script>alert('You must be at least 18 years old to register.'); window.history.back();</script>";
+    exit;
+}
+
+/* ----------------------
    MEMBERSHIP TYPE
 ---------------------- */
 if (!isset($_POST['membershipType'])) {
@@ -31,15 +48,6 @@ if (!isset($_POST['membershipType'])) {
     exit();
 }
 $mTypeID = intval($_POST['membershipType']);
-
-/* ----------------------
-   BIRTHDATE CHECK
----------------------- */
-
-if (empty($birthDate)) {
-    echo "<script>alert('Birth date is required!'); window.history.back();</script>";
-    exit;
-}
 
 /* ----------------------
    PASSWORD CHECK
@@ -69,17 +77,20 @@ if ($resultCheck->num_rows > 0) {
 }
 
 /* ----------------------
-   INSERT MEMBER
+   INSERT MEMBER - UPDATED COLUMN NAMES
 ---------------------- */
-$sqlMember = "INSERT INTO member
-(firstName, lastName, email, phoneNum, street, city, postcode, state, birthDate, password)
-VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+// Removed firstName, lastName -> Added fullName
+$sqlMember = "INSERT INTO member 
+(fullName, email, phoneNum, street, city, postcode, state, birthDate, password) 
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 $stmtMember = $conn->prepare($sqlMember);
+
+// Updated bind_param: removed one "s" (now 9 total strings)
 $stmtMember->bind_param(
-    "ssssssssss",
-    $firstname, $lastname, $email, $phoneNum,
-    $street, $city, $postcode, $state,
+    "sssssssss", 
+    $fullName, $email, $phoneNum, 
+    $street, $city, $postcode, $state, 
     $birthDate, $hashedPassword
 );
 
@@ -88,11 +99,6 @@ if (!$stmtMember->execute()) {
 }
 
 $memberID = $conn->insert_id;
-$age = date_diff(date_create($birthDate), date_create('today'))->y;
-if ($age < 18) {
-    echo "<script>alert('You must be at least 18 years old to register.'); window.history.back();</script>";
-    exit;
-}
 
 /* ----------------------
    GET MEMBERSHIP INFO
@@ -142,6 +148,7 @@ $membershipID = $conn->insert_id;
 $_SESSION['memberID']     = $memberID;
 $_SESSION['membershipID'] = $membershipID;
 $_SESSION['amount']       = $amount;
+
 
 /* ----------------------
    REDIRECT TO PAYMENT

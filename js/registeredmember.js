@@ -39,6 +39,10 @@ function openModal(type, id) {
     const modal = document.getElementById("memberModal");
     const title = document.getElementById("modalTitle");
     const footer = document.getElementById("modalFooter");
+    
+    // Identify our new input field
+    const fullNameField = document.getElementById("editFullName");
+    const editPhone = document.getElementById("editPhone");
 
     const inputs = document.querySelectorAll("#modalForm input");
     inputs.forEach(i => {
@@ -58,8 +62,8 @@ function openModal(type, id) {
         .then(r => r.json())
         .then(d => {
             if (d.error) return alert(d.error);
-            editFirstName.value = d.firstName;
-            editLastName.value = d.lastName;
+            
+            fullNameField.value = d.fullName; 
             editPhone.value = d.phoneNum || "";
         })
         .catch(() => alert("Failed to load member data"));

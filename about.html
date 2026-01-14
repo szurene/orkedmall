@@ -1,203 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us - The Orked Mall</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --brand-sand: #e5dcd6;
-            --brand-rose: #e19bb1;
-            --text-dark: #333333;
-            --border-light: #e0e0e0;
-            --white: #ffffff;
-            --gray-bg: #f9f9f9;
-        }
-
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: var(--white);
-            margin: 0;
-            line-height: 1.6;
-            color: var(--text-dark);
-        }
-
-        /* HEADER */
-        .topbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 60px;
-            background: linear-gradient(135deg, var(--brand-sand) 0%, #c5b9ac 100%);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
-
-
-        .logo a {
-            text-decoration: none;
-            color: var(--text-dark);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .logo span {
-            font-size: 18px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            font-weight: 600;
-        }
-
-        .logo-img {
-            height: 40px;
-            width: auto;
-        }
-
-        .menu-btn {
-            font-size: 24px;
-            cursor: pointer;
-            border: none;
-            background: none;
-            color: var(--text-dark);
-            padding-bottom: 10px; /* Bridge gap for hover */
-        }
-
-        /* HOVER MOVEMENT LOGIC */
-        .dropdown { 
-            position: relative; 
-            display: inline-block;
-        }
-        
-        .menu-list {
-            display: block; 
-            position: absolute;
-            right: 0;
-            top: 45px;
-            background: var(--white);
-            border: 1px solid var(--border-light);
-            width: 200px;
-            border-radius: 8px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            overflow: hidden;
-            
-            /* Hidden State */
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(10px);
-            transition: all 0.3s ease-in-out;
-        }
-
-        /* Show on Hover */
-        .dropdown:hover .menu-list {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-
-        .menu-list a {
-            display: block;
-            padding: 12px 20px;
-            text-decoration: none;
-            color: var(--text-dark);
-            font-size: 14px;
-            border-bottom: 1px solid #f5f5f5;
-        }
-        .menu-list a:hover { background: #f5f5f5; color: var(--brand-rose); }
-
-        /* HERO SECTION */
-        .about-hero {
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80');
-            background-size: cover;
-            background-position: center;
-            color: white;
-            padding: 120px 5%;
-            text-align: center;
-        }
-
-        .about-hero h1 { font-weight: 300; letter-spacing: 5px; text-transform: uppercase; }
-
-        .content-section {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 80px 5%;
-        }
-
-        .text-center { text-align: center; }
-
-        /* TEAM GRID */
-        .team-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 40px;
-            margin-top: 50px;
-        }
-
-        .team-member {
-            text-align: center;
-            transition: transform 0.3s;
-        }
-
-        .team-member:hover { transform: translateY(-5px); }
-
-        .team-member img {
-            width: 180px;
-            height: 180px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 1px solid var(--brand-rose);
-            padding: 5px;
-            margin-bottom: 20px;
-        }
-
-        .team-member h3 { 
-            margin: 10px 0 5px; 
-            font-size: 1.1rem; 
-            text-transform: uppercase; 
-            letter-spacing: 1px;
-            font-weight: 500;
-        }
-        .team-member p { color: #888; font-size: 0.85rem; margin: 0; text-transform: uppercase; }
-
-        /* BENEFITS GRID */
-        .benefits-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 25px;
-            margin-top: 50px;
-        }
-
-        .benefit-card {
-            background: var(--brand-sand);
-            padding: 35px;
-            border-radius: 4px;
-            text-align: center;
-        }
-
-        .benefit-card h4 { 
-            color: var(--text-dark); 
-            margin-top: 0; 
-            text-transform: uppercase; 
-            letter-spacing: 1px;
-            border-bottom: 2px solid var(--brand-rose);
-            display: inline-block;
-            padding-bottom: 5px;
-            margin-bottom: 15px;
-        }
-
-        .benefit-card p { font-size: 14px; color: #555; }
-
-        hr { border: 0; border-top: 1px solid var(--border-light); margin: 80px 0; }
-
-        @media (max-width: 768px) {
-            .topbar { padding: 15px 30px; }
-            .about-hero h1 { font-size: 24px; }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Us - The Orked Mall</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/about.css">
 </head>
 <body>
 
@@ -226,12 +34,63 @@
 <main class="content-section">
     <div class="text-center" style="max-width: 800px; margin: 0 auto;">
         <h2 style="font-weight: 400; text-transform: uppercase; letter-spacing: 2px;">Who We Are</h2>
-        <p style="color: #666;">The Orked Mall is your ultimate shopping destination, offering a wide variety of retail, dining, and entertainment experiences. Since 2025, our goal has been to provide convenience, quality, and exclusive offers to our valued members.</p>
+        <p style="color: #666;">Orked Mall is the premier destination for discerning shoppers, offering a curated mix of retail, dining, and lifestyle experiences. Since 2025, we’ve focused on delivering excellence and value to our members.</p>
     </div>
+
+    <section class="section">
+        <h2 class="section-title">Our Mission</h2>
+        <div class="text-center" style="max-width: 800px; margin: 0 auto;">
+    <p>Our mission is to provide unmatched experiences for our members. We strive to combine convenience, quality, and exclusive rewards, turning every visit into a premium shopping journey.</p>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2 class="section-title">Our Values</h2>
+        <div class="team-grid">
+            <div class="value-card">
+                <h3>Community First</h3>
+                <p>Building strong relationships with shoppers, tenants, and partners.</p>
+            </div>
+            <div class="value-card">
+                <h3>Quality Experience</h3>
+                <p>Delivering comfort, convenience, and curated retail experiences.</p>
+            </div>
+            <div class="value-card">
+                <h3>Innovation</h3>
+                <p>Continuously improving our systems, services, and rewards.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2 class="section-title">Why Choose Orked Mall</h2>
+        <div class="why-grid">
+            <div class="why-card">
+                <span>🎁</span>
+                <h3>Exclusive Rewards</h3>
+                <p>Unlock member-only promotions and discounts at your favorite stores.</p>
+            </div>
+            <div class="why-card">
+                <span>💻</span>
+                <h3>Seamless Digital Experience</h3>
+                <p>Manage your profile, check rewards, and stay updated online anytime.</p>
+            </div>
+            <div class="why-card">
+                <span>🛍️</span>
+                <h3>Curated Retail & Dining</h3>
+                <p>Enjoy hand-picked shopping and dining options.</p>
+            </div>
+            <div class="why-card">
+                <span>⭐</span>
+                <h3>Customer Satisfaction</h3>
+                <p>Our team is dedicated to creating enjoyable and memorable experiences.</p>
+            </div>
+        </div>
+    </section>
 
     <hr>
 
-    <h2 class="text-center" style="font-weight: 400; text-transform: uppercase; letter-spacing: 2px;">Leadership Team</h2>
+    <h2 class="section-title">Leadership Team</h2>
     <div class="team-grid">
         <div class="team-member">
             <img src="images/syafieda.png" alt="Nor Syafieda">
@@ -254,26 +113,9 @@
             <p>Member Experience Lead</p>
         </div>
     </div>
-
-    <h2 class="text-center" style="margin-top: 100px; font-weight: 400; text-transform: uppercase; letter-spacing: 2px;">Member Privileges</h2>
-    <div class="benefits-grid">
-        <div class="benefit-card">
-            <h4>Tiered Excellence</h4>
-            <p>Choose between Platinum & Gold levels tailored to your unique lifestyle.</p>
-        </div>
-        <div class="benefit-card">
-            <h4>Digital Portal</h4>
-            <p>Manage your entire profile and rewards through our seamless online system.</p>
-        </div>
-        <div class="benefit-card">
-            <h4>Exclusive Access</h4>
-            <p>Enjoy early-bird notifications for seasonal sales and private mall events.</p>
-        </div>
-    </div>
 </main>
 
 <div id="footer"></div>
-
 <script>
 fetch('footer.html')
     .then(res => res.text())

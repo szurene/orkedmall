@@ -57,30 +57,64 @@ $membershipName = $typeRow['mTypeName'];
 /* =========================
    INSERT PAYMENT
 ========================= */
-$sql = "
-INSERT INTO payment
-(paymentDate, paymentStatus, amount, paymentMethod, membershipID)
-VALUES (?, ?, ?, ?, ?)
-";
-
+$sql = "INSERT INTO payment (paymentDate, paymentStatus, amount, paymentMethod, membershipID) VALUES (?, ?, ?, ?, ?)";
 $stmt = $conn->prepare($sql);
-$stmt->bind_param(
-    "ssdsi",
-    $paymentDate,
-    $paymentStatus,
-    $amount,
-    $paymentMethod,
-    $membershipID
-);
+$stmt->bind_param("ssdsi", $paymentDate, $paymentStatus, $amount, $paymentMethod, $membershipID);
 
 if (!$stmt->execute()) {
     die("Payment processing failed: " . $stmt->error);
 }
 
 /* =========================
+   SEND CONFIRMATION EMAIL 
+========================= */
+require_once 'mailer/config.php';
+
+// 1. Fetch the member details and membership dates needed for the email
+$sqlDetails = "
+    SELECT m.email, m.fullName, ms.startDate, ms.endDate, mt.duration
+    FROM membership ms
+    JOIN member m ON ms.memberID = m.memberID
+    JOIN membership_type mt ON ms.mTypeID = mt.mTypeID
+    WHERE ms.membershipID = ?
+";
+$stmtDetails = $conn->prepare($sqlDetails);
+$stmtDetails->bind_param("i", $membershipID);
+$stmtDetails->execute();
+$detailsResult = $stmtDetails->get_result();
+$details = $detailsResult->fetch_assoc();
+
+if ($details) {
+    $email          = $details['email'];
+    $fullName       = $details['fullName'];
+    $startDate      = $details['startDate'];
+    $endDate        = $details['endDate'];
+    $durationMonths = $details['duration'];
+    $memberID       = $_SESSION['memberID']; 
+
+    // 2. Trigger the email - ADDED $amount and $paymentMethod here
+    if (sendRegistrationEmail(
+            $email, 
+            $fullName, 
+            $memberID, 
+            $startDate, 
+            $endDate, 
+            $durationMonths, 
+            $amount, 
+            $paymentMethod
+        )) {
+        $_SESSION['email_sent'] = true;
+    } else {
+        $_SESSION['email_sent'] = false;
+        error_log("Failed to send registration email to: $email");
+    }
+}
+
+/* =========================
    CLEAR PAYMENT SESSION
 ========================= */
-unset($_SESSION['membershipID'], $_SESSION['amount']);
+// Note: Keeping memberID in session might be useful for the dashboard login
+unset($_SESSION['membershipID'], $_SESSION['amount']); 
 
 /* =========================
    SUCCESS ALERT + REDIRECT

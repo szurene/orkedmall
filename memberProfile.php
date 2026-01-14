@@ -9,9 +9,10 @@ if (!isset($_SESSION['memberID'])) {
 
 $memberID = $_SESSION['memberID'];
 
+// 1. Updated SQL to select fullName instead of firstName, lastName
 $sql = "
 SELECT 
-    m.firstName, m.lastName, m.email, m.phoneNum,
+    m.fullName, m.email, m.phoneNum,
     m.street, m.city, m.postcode, m.state, m.birthDate,
     mt.mTypeName,
     ms.endDate
@@ -37,14 +38,12 @@ $member = $result->fetch_assoc();
 </head>
 <body>
 
-<!-- HEADER -->
 <header class="topbar">
     <div class="logo">
         <img src="images/orked.png" class="logo-img">
     </div>
 </header>
 
-<!-- DASHBOARD BUTTON BAR -->
 <div class="sub-nav">
     <a href="memberDashboard.php" class="dashboard-btn">
         ← Back to Dashboard
@@ -53,10 +52,8 @@ $member = $result->fetch_assoc();
 
 <hr>
 
-<!-- PROFILE CONTENT -->
 <div class="profile-container">
 
-    <!-- LEFT MEMBERSHIP CARD -->
     <div class="membership-card">
         <div class="avatar">👤</div>
         <h2><?= htmlspecialchars($member['mTypeName']) ?> Membership</h2>
@@ -66,16 +63,10 @@ $member = $result->fetch_assoc();
         </p>
     </div>
 
-    <!-- PROFILE FORM -->
     <form class="profile-form" action="profile_update.php" method="POST" id="profileForm">
 
-        <div class="form-row">
-            <label>First Name</label>
-            <input type="text" name="firstName" value="<?= htmlspecialchars($member['firstName']) ?>" disabled required>
-
-            <label>Last Name</label>
-            <input type="text" name="lastName" value="<?= htmlspecialchars($member['lastName']) ?>" disabled required>
-        </div>
+        <label>Full Name</label>
+        <input type="text" name="fullName" value="<?= htmlspecialchars($member['fullName']) ?>" disabled required>
 
         <label>Phone Number</label>
         <input type="text" name="phoneNum" value="<?= htmlspecialchars($member['phoneNum']) ?>" disabled required>
@@ -97,7 +88,6 @@ $member = $result->fetch_assoc();
         <label>State</label>
         <input type="text" name="state" value="<?= htmlspecialchars($member['state']) ?>" disabled required>
 
-        <!-- ACTION BUTTONS -->
         <div class="profile-actions">
             <button type="button" id="editBtn" class="edit-btn">Edit</button>
             <button type="submit" id="saveBtn" class="save-btn" style="display:none;">Save</button>
@@ -106,7 +96,6 @@ $member = $result->fetch_assoc();
 
 </div>
 
-<!-- ENABLE EDIT MODE -->
 <script>
 document.getElementById("editBtn").addEventListener("click", function () {
     document.querySelectorAll("#profileForm input").forEach(input => {

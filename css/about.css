@@ -1,0 +1,182 @@
+:root {
+    --brand-sand: #e5dcd6;
+    --brand-rose: #e19bb1;
+    --text-dark: #333333;
+    --border-light: #e0e0e0;
+    --white: #ffffff;
+    --gray-bg: #f9f9f9;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: var(--white);
+    margin: 0;
+    line-height: 1.6;
+    color: var(--text-dark);
+}
+
+/* HEADER */
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 60px;
+    background: linear-gradient(135deg, var(--brand-sand) 0%, #c5b9ac 100%);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.logo a {
+    text-decoration: none;
+    color: var(--text-dark);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo-img { height: 40px; width: auto; }
+
+.menu-btn {
+    font-size: 24px;
+    cursor: pointer;
+    border: none;
+    background: none;
+    color: var(--text-dark);
+    padding-bottom: 10px;
+}
+
+.dropdown { position: relative; display: inline-block; }
+
+.menu-list {
+    position: absolute;
+    right: 0;
+    top: 45px;
+    background: var(--white);
+    border: 1px solid var(--border-light);
+    width: 200px;
+    border-radius: 8px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.3s ease-in-out;
+}
+
+.dropdown:hover .menu-list {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.menu-list a {
+    display: block;
+    padding: 12px 20px;
+    text-decoration: none;
+    color: var(--text-dark);
+    font-size: 14px;
+    border-bottom: 1px solid #f5f5f5;
+}
+
+.menu-list a:hover { background: #f5f5f5; color: var(--brand-rose); }
+
+/* HERO SECTION */
+.about-hero {
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80');
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 100px 5%;
+    text-align: center;
+}
+
+.about-hero h1 { font-weight: 300; letter-spacing: 5px; text-transform: uppercase; }
+
+.content-section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 60px 5%;
+}
+
+.text-center { text-align: center; }
+
+/* SECTION WRAPPER */
+.section { margin-top: 60px; }
+.section-title {
+    text-align: center;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 25px;
+}
+
+/* VALUES CARDS */
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.value-card, .why-card, .team-member {
+    background: var(--white);
+    padding: 25px 20px;
+    border-radius: 12px;
+    border: 1px solid var(--border-light);
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+}
+
+.value-card:hover, .why-card:hover, .team-member:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.08);
+    border-color: var(--brand-rose);
+}
+
+.value-card h3, .why-card h3, .team-member h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-dark);
+}
+
+.value-card p, .why-card p, .team-member p { color: #666; font-size: 0.95rem; margin: 0; }
+
+.team-member img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid var(--brand-rose);
+    padding: 5px;
+    margin-bottom: 15px;
+}
+
+/* WHY CHOOSE GRID */
+.why-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+    max-width: 1100px;
+    margin: 40px auto 0;
+}
+
+.why-card span {
+    display: block;
+    font-size: 32px;
+    margin-bottom: 12px;
+}
+
+/* HR */
+hr { border: 0; border-top: 1px solid var(--border-light); margin: 60px auto; max-width: 200px; }
+
+@media (max-width: 768px) {
+    .topbar { padding: 15px 30px; }
+    .about-hero { padding: 80px 5%; }
+    .about-hero h1 { font-size: 24px; }
+    .team-member img { width: 120px; height: 120px; }
+}

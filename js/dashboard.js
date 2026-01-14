@@ -126,9 +126,3 @@ function loadDashboardData() {
    Calls the AJAX function when page loads
 ------------------------------- */
 loadDashboardData();
-
-/* ------------------------------
-   OPTIONAL: AUTO REFRESH
-   Re-fetches data every 1 seconds (1000ms) via AJAX
-------------------------------- */
-setInterval(loadDashboardData, 1000);
