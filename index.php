@@ -113,7 +113,7 @@
     <section class="info-card">
         <h2>Policies</h2>
         <ul>
-            <li>All members must register online to access benefits.</li>
+            <li>All members must register online to view benefits.</li>
             <li>Validity varies by membership tier (1 or 2 years).</li>
             <li>Discounts apply only to active members.</li>
             <li>The Orked Mall reserves the right to update policies.</li>
