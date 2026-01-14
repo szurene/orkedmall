@@ -74,7 +74,6 @@
         </div>
     </section>
 
-    <! --MEMBER PRIVILEGES SECTION -->
     <!-- MEMBER PRIVILEGES -->
 <section class="section member-privileges">
     <div class="section-inner">

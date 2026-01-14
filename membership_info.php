@@ -82,12 +82,11 @@
             if (menu.classList.contains('show')) menu.classList.remove('show');
         }
     }
-    // Select all elements with the class 'flip-card'
+    
     const cards = document.querySelectorAll('.flip-card');
 
     cards.forEach(card => {
         card.addEventListener('click', function() {
-        // Toggle the 'flipped' class on click
         this.classList.toggle('flipped');
         });
     });

@@ -116,71 +116,69 @@
       padding: 20px;
     }
 
-    /* --- Flip Card Core --- */
-.flip-card {
-  width: 437px;
-  height: 310px;
-  perspective: 1000px;
-  flex-shrink: 0;
-  cursor: pointer; /* Indicates the card is clickable */
-}
+    .flip-card {
+      width: 437px;
+      height: 310px;
+      perspective: 1000px;
+      flex-shrink: 0;
+      cursor: pointer; 
+      }
 
-.flip-card-inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-  transform-style: preserve-3d;
-}
+    .flip-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      transform-style: preserve-3d;
+      }
 
-/* Logic: Flip when the .flipped class is present */
-.flip-card.flipped .flip-card-inner {
-  transform: rotateY(180deg);
-}
+    .flip-card.flipped .flip-card-inner {
+      transform: rotateY(180deg);
+      }
 
-.flip-card-front,
-.flip-card-back {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  border-radius: 12px;
-  padding: 35px;
-  box-sizing: border-box;
-  backface-visibility: hidden;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  background-size: cover;
-  background-position: center;
-  overflow: hidden;
-}
+    .flip-card-front,
+    .flip-card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 12px;
+      padding: 35px;
+      box-sizing: border-box;
+      backface-visibility: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background-size: cover;
+      background-position: center;
+      overflow: hidden;
+    }
 
-/* Front Faces */
-.flip-card-front.platinum {
-  background-image: url('../images/platinum_front.png');
-  color: white;
-}
 
-.flip-card-front.gold {
-  background-image: url('../images/gold_front.png');
-  color: white;
-}
+    .flip-card-front.platinum {
+      background-image: url('../images/platinum_front.png');
+      color: white;
+    }
 
-/* Back Faces */
-.flip-card-back {
-  transform: rotateY(180deg);
-  text-align: center;
-  justify-content: center;
-  color: #ffffff;
-}
+    .flip-card-front.gold {
+      background-image: url('../images/gold_front.png');
+      color: white;
+    }
 
-.flip-card-back.platinum-back {
-  background-image: url('../images/platinum_back.png');
-}
+    .flip-card-back {
+      transform: rotateY(180deg);
+      text-align: center;
+      justify-content: center;
+      color: #ffffff;
+    }
 
-.flip-card-back.gold-back {
-  background-image: url('../images/gold_back.png');
-}
+    .flip-card-back.platinum-back {
+      background-image: url('../images/platinum_back.png');
+    }
+
+    .flip-card-back.gold-back {
+      background-image: url('../images/gold_back.png');
+    }
+    
     .membership-title {
       font-size: 20px;
       font-weight: 600;

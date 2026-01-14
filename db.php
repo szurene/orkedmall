@@ -1,8 +1,8 @@
 <?php
-$host = "localhost";       // your database host
-$user = "root";            // your database username
-$pass = "";                // your database password
-$dbName = "orked_mall";     // your updated database name
+$host = "localhost";       //database host
+$user = "root";            //database username
+$pass = "";                //database password
+$dbName = "orked_mall";    //database name
 
 // Create connection
 $conn = new mysqli($host, $user, $pass, $dbName);

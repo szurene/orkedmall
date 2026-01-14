@@ -16,7 +16,7 @@
 
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: var(--brand-sand); /* Sandstone background for the whole page */
+            background-color: var(--brand-sand); 
             margin: 0;
             display: flex;
             justify-content: center;
