@@ -59,15 +59,18 @@ $typeRow = $typeResult->fetch_assoc();
 $membershipName = $typeRow['mTypeName'];
 
 /* =========================
-   INSERT PAYMENT
+   INSERT PAYMENT (WITH membershipID)
 ========================= */
-$sql = "INSERT INTO payment (paymentDate, paymentStatus, amount, paymentMethod) VALUES (?, ?, ?, ?)";
+$sql = "INSERT INTO payment (paymentDate, paymentStatus, amount, paymentMethod, membershipID)
+        VALUES (?, ?, ?, ?, ?)";
+
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("ssds", $paymentDate, $paymentStatus, $amount, $paymentMethod);
+$stmt->bind_param("ssdsi", $paymentDate, $paymentStatus, $amount, $paymentMethod, $membershipID);
 $stmt->execute();
 
 // Get the paymentID of the new payment
 $paymentID = $stmt->insert_id;
+
 
 
 
