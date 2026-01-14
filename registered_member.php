@@ -3,14 +3,13 @@ include 'db.php';
 
 $search = isset($_GET['search']) ? $conn->real_escape_string($_GET['search']) : '';
 
-$sql = "SELECT m.memberID, m.fullName, m.phoneNum,
-               IFNULL(mt.mTypeName, 'No Plan') AS tier, 
-               IFNULL(p.paymentStatus, 'Pending') AS payStatus,
-               ms.endDate
-        FROM member m
-        LEFT JOIN membership ms ON m.memberID = ms.memberID
-        LEFT JOIN membership_type mt ON ms.mTypeID = mt.mTypeID
-        LEFT JOIN payment p ON ms.paymentID = p.paymentID"; 
+$sql = " SELECT m.memberID, m.fullName, m.phoneNum,
+         IFNULL(mt.mTypeName, 'No Plan') AS tier,
+         IFNULL(p.paymentStatus, 'Pending') AS payStatus, ms.endDate
+         FROM member m
+            LEFT JOIN membership ms ON m.memberID = ms.memberID
+            LEFT JOIN membership_type mt ON ms.mTypeID = mt.mTypeID
+            LEFT JOIN payment p ON p.paymentID = ms.paymentID";
 
 if ($search !== '') {
     $sql .= " WHERE m.fullName LIKE '%$search%'
@@ -68,14 +67,21 @@ $result = $conn->query($sql);
                 <?php while ($row = $result->fetch_assoc()):
                     $isActive = (!empty($row['endDate']) && $row['endDate'] >= date('Y-m-d'));
                     $statusClass = $isActive ? 'status-active' : 'status-inactive';
-                    $payClass = strtolower($row['payStatus']) === 'completed' ? 'status-paid' : 'status-pending';
+                    $payStatus = $row['payStatus'] ?? 'Pending';
+                    $payClass  = strtolower($payStatus) === 'completed' ? 'status-paid' : 'status-pending';
+
                 ?>
                 <tr>
                     <td>#OM-M<?= $row['memberID'] ?></td>
                     <td><?= htmlspecialchars($row['fullName']) ?></td>
                     <td><?= htmlspecialchars($row['tier']) ?></td>
                     <td><?= htmlspecialchars($row['phoneNum'] ?? 'N/A') ?></td>
-                    <td><span class="status-badge <?= $payClass ?>"><?= $row['payStatus'] ?></span></td>
+                    <td>
+                        <span class="status-badge <?= $payClass ?>">
+                            <?= htmlspecialchars($payStatus) ?>
+                        </span>
+                    </td>
+
                     <td><span class="status-badge <?= $statusClass ?>"><?= $isActive ? 'Active' : 'Inactive' ?></span></td>
                     <td class="action-buttons">
                         <button class="view-btn" onclick="openModal('view', <?= $row['memberID'] ?>)">View</button>

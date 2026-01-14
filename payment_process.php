@@ -16,9 +16,7 @@ if (
 $membershipID  = $_SESSION['membershipID'];
 $amount        = $_SESSION['amount'];
 $paymentMethod = $_POST['paymentMethod'];
-
-$paymentDate   = date("Y-m-d");
-$paymentStatus = "Paid";
+$paymentDate   = date("Y-m-d"); // correct format for MySQL DATE
 
 /* =========================
    PREVENT DUPLICATE PAYMENT
@@ -45,97 +43,130 @@ if ($checkStmt->num_rows > 0) {
    GET MEMBERSHIP NAME
 ========================= */
 $sqlType = "
-SELECT mt.mTypeName
-FROM membership ms
-JOIN membership_type mt ON ms.mTypeID = mt.mTypeID
-WHERE ms.membershipID = ?
+    SELECT mt.mTypeName
+    FROM membership ms
+    JOIN membership_type mt ON ms.mTypeID = mt.mTypeID
+    WHERE ms.membershipID = ?
 ";
 $stmtType = $conn->prepare($sqlType);
 $stmtType->bind_param("i", $membershipID);
 $stmtType->execute();
 $typeResult = $stmtType->get_result();
 $typeRow = $typeResult->fetch_assoc();
-
 $membershipName = $typeRow['mTypeName'];
 
 /* =========================
-   INSERT PAYMENT
+   INSERT PAYMENT (Pending first)
 ========================= */
+$paymentStatus = "Pending"; // default pending
 $sql = "INSERT INTO payment (paymentDate, paymentStatus, amount, paymentMethod) VALUES (?, ?, ?, ?)";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("ssds", $paymentDate, $paymentStatus, $amount, $paymentMethod);
-$stmt->execute();
 
-// Get the paymentID of the new payment
+if (!$stmt->execute()) {
+    die("Payment insert error: " . $stmt->error);
+}
+
+// Get the new paymentID
 $paymentID = $stmt->insert_id;
 
-// Update membership table to link this payment
+/* =========================
+   LINK PAYMENT TO MEMBERSHIP
+========================= */
 $updateSql = "UPDATE membership SET paymentID = ? WHERE membershipID = ?";
 $updateStmt = $conn->prepare($updateSql);
 $updateStmt->bind_param("ii", $paymentID, $membershipID);
 $updateStmt->execute();
 
 /* =========================
-   SEND CONFIRMATION EMAIL 
+   SIMULATE PAYMENT RESULT
+   (replace with real gateway integration)
 ========================= */
-require_once 'mailer/config.php';
+$success = true; // change to false to simulate failed payment
 
-// 1. Fetch the member details and membership dates needed for the email
-$sqlDetails = "
-    SELECT m.email, m.fullName, ms.startDate, ms.endDate, mt.duration
-    FROM membership ms
-    JOIN member m ON ms.memberID = m.memberID
-    JOIN membership_type mt ON ms.mTypeID = mt.mTypeID
-    WHERE ms.membershipID = ?
-";
-$stmtDetails = $conn->prepare($sqlDetails);
-$stmtDetails->bind_param("i", $membershipID);
-$stmtDetails->execute();
-$detailsResult = $stmtDetails->get_result();
-$details = $detailsResult->fetch_assoc();
+if ($success) {
+    $finalStatus = "Completed";
+} else {
+    $finalStatus = "Failed";
+}
 
-if ($details) {
-    $email          = $details['email'];
-    $fullName       = $details['fullName'];
-    $startDate      = $details['startDate'];
-    $endDate        = $details['endDate'];
-    $durationMonths = $details['duration'];
-    $memberID       = $_SESSION['memberID']; 
+// Update payment status
+$updateStatusSql = "UPDATE payment SET paymentStatus = ? WHERE paymentID = ?";
+$updateStatusStmt = $conn->prepare($updateStatusSql);
+$updateStatusStmt->bind_param("si", $finalStatus, $paymentID);
+$updateStatusStmt->execute();
 
-    // 2. Trigger the email - ADDED $amount and $paymentMethod here
-    if (sendRegistrationEmail(
-            $email, 
-            $fullName, 
-            $memberID, 
-            $startDate, 
-            $endDate, 
-            $durationMonths, 
-            $amount, 
-            $paymentMethod
-        )) {
-        $_SESSION['email_sent'] = true;
-    } else {
-        $_SESSION['email_sent'] = false;
-        error_log("Failed to send registration email to: $email");
+/* =========================
+   SEND CONFIRMATION EMAIL IF COMPLETED
+========================= */
+if ($finalStatus === "Completed") {
+    require_once 'mailer/config.php';
+
+    $sqlDetails = "
+        SELECT m.email, m.fullName, ms.startDate, ms.endDate, mt.duration
+        FROM membership ms
+        JOIN member m ON ms.memberID = m.memberID
+        JOIN membership_type mt ON ms.mTypeID = mt.mTypeID
+        WHERE ms.membershipID = ?
+    ";
+    $stmtDetails = $conn->prepare($sqlDetails);
+    $stmtDetails->bind_param("i", $membershipID);
+    $stmtDetails->execute();
+    $detailsResult = $stmtDetails->get_result();
+    $details = $detailsResult->fetch_assoc();
+
+    if ($details) {
+        $email          = $details['email'];
+        $fullName       = $details['fullName'];
+        $startDate      = $details['startDate'];
+        $endDate        = $details['endDate'];
+        $durationMonths = $details['duration'];
+        $memberID       = $_SESSION['memberID']; 
+
+        if (sendRegistrationEmail(
+                $email, 
+                $fullName, 
+                $memberID, 
+                $startDate, 
+                $endDate, 
+                $durationMonths, 
+                $amount, 
+                $paymentMethod
+            )) {
+            $_SESSION['email_sent'] = true;
+        } else {
+            $_SESSION['email_sent'] = false;
+            error_log("Failed to send registration email to: $email");
+        }
     }
 }
 
 /* =========================
    CLEAR PAYMENT SESSION
 ========================= */
-// Note: Keeping memberID in session might be useful for the dashboard login
 unset($_SESSION['membershipID'], $_SESSION['amount']); 
 
 /* =========================
-   SUCCESS ALERT + REDIRECT
+   SHOW ALERT BASED ON STATUS
 ========================= */
-echo "<script>
-    alert(
-        'Payment Successful!\\n' +
-        'Membership: $membershipName\\n' +
-        'Payment Method: $paymentMethod\\n' +
-        'Amount: RM" . number_format($amount,2) . "'
-    );
-    window.location.href='memberDashboard.php';
-</script>";
+$message = "Membership: $membershipName\nPayment Method: $paymentMethod\nAmount: RM" . number_format($amount, 2);
+
+if ($finalStatus === "Completed") {
+    echo "<script>
+        alert('Payment Successful!\\n$message');
+        window.location.href='memberDashboard.php';
+    </script>";
+} else if ($finalStatus === "Pending") {
+    echo "<script>
+        alert('Payment is pending. Please complete it.\\n$message');
+        window.location.href='memberDashboard.php';
+    </script>";
+} else {
+    echo "<script>
+        alert('Payment Failed. Please try again.\\n$message');
+        window.location.href='payment.php';
+    </script>";
+}
+
 exit();
+?>
