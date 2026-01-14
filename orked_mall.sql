@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 14, 2026 at 12:16 PM
+-- Generation Time: Jan 14, 2026 at 11:07 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -64,10 +64,12 @@ CREATE TABLE `member` (
 --
 
 INSERT INTO `member` (`memberID`, `email`, `fullName`, `password`, `phoneNum`, `street`, `city`, `postcode`, `state`, `birthDate`) VALUES
-(1, 'n.rafhans29@gmail.com', 'Nur Rafhanah', '$2y$10$g9ISALGDGA0rdw1lAYagYued2ulgbiPRvlxEdw7kCSQ8SI/1I7/1a', '0155454125', 'No. 21, Jalan SG 2/1, Taman Sri Gombak', 'Batu Caves', '68100', 'Selangor', '2004-03-29'),
-(2, 'mark@gmail.com', 'Mark Adam', '$2y$10$nOjHKKpDQqHkQaQN/q.JWOgCmLDYh2TSUpdP1Q3zWsJHJtZi.wtmq', '01258896584', 'No.38, Jalan IG 2/1, Taman Indah Gemilang', 'Shah Alam', '42500', 'Selangor', '2008-01-02'),
-(3, 'karim23@gmail.com', 'Abdul Karim', '$2y$10$lSSeGSYPGKoHkrP50oFSOON7sAsudsizG1nY.QEODyt5PyTJv345O', '0128459675', 'No. 45, Jalan 2/1, Taman Indah Gemilang', 'Batu Caves', '68100', 'Selangor', '1995-02-23'),
-(4, 'aisyah@gmail.com', 'Siti Aisyah', '$2y$10$xkZPSJMsR8GR9Z0BNgncO.yL3X4KC7lKkLZs5bb1OF/MqZZOb3srK', '0135698754', 'no. 32, Jalan Makmur, 2/5 Taman Sri Makmur', 'Batu Caves', '68100', 'Selangor', '1993-09-13');
+(1, 'rafhans29@gmail.com', 'rafhan', '$2y$10$TafWv.jvS4yUuvIWNIPWYOvgurbBFBDrp.sbXoqTexqEj.Imc4IAm', '0155454125', 'No. 21, Jalan SG 2/1, Taman Sri Gombak', 'Batu Caves', '68100', 'Selangor', '2003-06-16'),
+(2, 'mark@gmail.com', 'Mark Adam', '$2y$10$5pBXZX3pUKWFzMa2YQd0iujc7aSFOdKHz/nCnLfCFEU82kotT0lB2', '01258896584', 'no. 32, Jalan Makmur, 2/5 Taman Sri Makmur', 'Shah Alam', '42500', 'Selangor', '1994-05-03'),
+(3, 'jane@gmail.com', 'Jane', '$2y$10$Y8kNsTnkQOHOfFFoBuBM4utJ6OennUBmx0gEHvia7G.jumZZq2a4K', '0135698754', 'No.38, Jalan IG 2/1, Taman Indah Gemilang', 'Batu Caves', '68100', 'Selangor', '1995-09-19'),
+(4, 'ab@gmail.com', 'Abdul Karim', '$2y$10$8GcmkoMEnQXRumcrzqMUn.NdAQZU0700G5c83tkMSjxus75EpVMFq', '0128459675', 'No. 21, Jalan SG 2/1, Taman Sri Gombak', 'Batu Caves', '68100', 'Selangor', '1992-03-11'),
+(5, 'aisy@gmail.com', 'Siti Aisyah', '$2y$10$t9cD9GJRQst/Qdzti3fRO./aSFsn5uTuqfrd/Vth8dYY/TMCyppLO', '0135698754', 'no. 32, Jalan Makmur, 2/5 Taman Sri Makmur', 'Shah Alam', '42500', 'Selangor', '1990-04-12'),
+(6, 'zahirah@gmail.com', 'Zahirah', '$2y$10$gjrBRbkbSvUpyyOj3M4Mye016vWb1rQM.pBJtVU8AbGQSHpL7jjaC', '0169876598', 'No.38, Jalan IG 2/1, Taman Indah Gemilang', 'Batu Caves', '42500', 'Selangor', '2008-01-03');
 
 -- --------------------------------------------------------
 
@@ -89,10 +91,12 @@ CREATE TABLE `membership` (
 --
 
 INSERT INTO `membership` (`membershipID`, `startDate`, `endDate`, `memberID`, `mTypeID`, `paymentID`) VALUES
-(5, '2026-01-14', '2027-01-14', 1, 1, 5),
-(6, '2026-01-14', '2028-01-14', 2, 2, 6),
-(7, '2026-01-14', '2028-01-14', 3, 2, 7),
-(8, '2026-01-14', '2027-01-14', 4, 1, 8);
+(9, '2026-01-14', '2027-01-14', 1, 1, 9),
+(10, '2026-01-14', '2027-01-14', 2, 1, 10),
+(11, '2026-01-14', '2028-01-14', 3, 2, 11),
+(12, '2026-01-14', '2028-01-14', 4, 2, 12),
+(13, '2026-01-14', '2028-01-14', 5, 2, 13),
+(14, '2026-01-14', '2028-01-14', 6, 2, 14);
 
 -- --------------------------------------------------------
 
@@ -141,7 +145,13 @@ INSERT INTO `payment` (`paymentID`, `paymentDate`, `paymentStatus`, `amount`, `p
 (5, '2026-01-14', '', 160.00, 'FPX'),
 (6, '2026-01-14', '', 240.00, 'Card'),
 (7, '2026-01-14', '', 240.00, 'GrabPay'),
-(8, '2026-01-14', '', 160.00, 'ShopeePay');
+(8, '2026-01-14', '', 160.00, 'ShopeePay'),
+(9, '2026-01-14', 'Completed', 160.00, 'FPX'),
+(10, '2026-01-14', 'Completed', 160.00, 'Card'),
+(11, '2026-01-14', 'Completed', 240.00, 'Touch n Go'),
+(12, '2026-01-14', 'Completed', 240.00, 'ShopeePay'),
+(13, '2026-01-14', 'Completed', 240.00, 'GrabPay'),
+(14, '2026-01-14', 'Completed', 240.00, 'ShopeePay');
 
 --
 -- Indexes for dumped tables
@@ -196,13 +206,13 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `member`
 --
 ALTER TABLE `member`
-  MODIFY `memberID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `memberID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `membership`
 --
 ALTER TABLE `membership`
-  MODIFY `membershipID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `membershipID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `membership_type`
@@ -214,7 +224,7 @@ ALTER TABLE `membership_type`
 -- AUTO_INCREMENT for table `payment`
 --
 ALTER TABLE `payment`
-  MODIFY `paymentID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `paymentID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- Constraints for dumped tables

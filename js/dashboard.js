@@ -125,4 +125,9 @@ function loadDashboardData() {
    INITIAL LOAD OF DASHBOARD
    Calls the AJAX function when page loads
 ------------------------------- */
+// Initial load
 loadDashboardData();
+
+// Real-time update: refresh every 1 seconds
+setInterval(loadDashboardData, 1000); // 1000 ms = 1 seconds
+
