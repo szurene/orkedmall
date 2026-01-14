@@ -112,16 +112,6 @@ body {
     margin-bottom: 25px;
 }
 
-/* MISSION CARD */
-.mission-box {
-    background: var(--gray-bg);
-    padding: 40px;
-    border-radius: 12px;
-    max-width: 900px;
-    margin: 0 auto;
-    text-align: center;
-}
-
 /* VALUES CARDS */
 .team-grid {
     display: grid;
