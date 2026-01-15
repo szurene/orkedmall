@@ -2,7 +2,7 @@
 session_start();
 
 // Database connection
-$conn = mysqli_connect("localhost", "root", "", "orkeddata");
+$conn = mysqli_connect("localhost", "root", "", "orked_mall");
 
 if (!$conn) {
     die("Database connection failed");
