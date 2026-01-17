@@ -88,15 +88,26 @@ body {
 .main h1 { font-size: 24px; font-weight: 600; margin-bottom: 30px; }
 
 /* Search Bar */
-.search-bar { margin-bottom: 30px; }
-.search-bar input {
+.search-wrapper {
+    position: relative;
     width: 100%;
     max-width: 400px;
-    padding: 12px 20px;
+}
+
+/* Input field */
+.search-wrapper input {
+    width: 100%;
+    padding: 12px 40px 12px 20px; /* space for ❌ */
     border: 1px solid #ddd;
     border-radius: 6px;
     font-size: 14px;
     outline: none;
+    box-sizing: border-box;
+}
+
+.search-wrapper input {
+    position: relative;
+    z-index: 1;
 }
 
 /* Table Design */
@@ -229,6 +240,34 @@ td { padding: 18px 10px; font-size: 14px; border-bottom: 1px solid var(--border-
     min-width: 100px;
     max-width: 110px;
 }
+
+.search-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+}
+
+.search-wrapper input {
+    width: 100%;
+    padding-right: 40px;
+}
+
+.clear-btn {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    font-size: 18px;
+    color: #999;
+    cursor: pointer;
+}
+
+.clear-btn:hover {
+    color: #e19bb1;
+}
+
 
 /* Table header adjustments for better alignment */
 th {

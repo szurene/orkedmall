@@ -1,25 +1,97 @@
 <?php
 include 'db.php';
 
-$search = isset($_GET['search']) ? $conn->real_escape_string($_GET['search']) : '';
+$search = isset($_GET['search']) ? trim($_GET['search']) : '';
 
-$sql = " SELECT m.memberID, m.fullName, m.phoneNum,
-         IFNULL(mt.mTypeName, 'No Plan') AS tier,
-         IFNULL(p.paymentStatus, 'Pending') AS payStatus, ms.endDate
-         FROM member m
-            LEFT JOIN membership ms ON m.memberID = ms.memberID
-            LEFT JOIN membership_type mt ON ms.mTypeID = mt.mTypeID
-            LEFT JOIN payment p ON p.paymentID = ms.paymentID";
+$sql = "
+SELECT m.memberID, m.fullName, m.phoneNum,
+    IFNULL(mt.mTypeName, 'No Plan') AS tier,
+    IFNULL(p.paymentStatus, 'Pending') AS payStatus,
+    ms.endDate
+FROM member m
+LEFT JOIN membership ms ON m.memberID = ms.memberID
+LEFT JOIN membership_type mt ON ms.mTypeID = mt.mTypeID
+LEFT JOIN payment p ON ms.paymentID = p.paymentID
+";
 
 if ($search !== '') {
-    $sql .= " WHERE m.fullName LIKE '%$search%'
-              OR m.phoneNum LIKE '%$search%'
-              OR m.memberID LIKE '%$search%'";
+    $sql .= "
+    WHERE
+        m.fullName LIKE '%$search%' OR
+        m.phoneNum LIKE '%$search%' OR
+        mt.mTypeName LIKE '%$search%' OR
+        p.paymentStatus LIKE '%$search%' OR
+        (
+            '$search' = 'active' AND ms.endDate >= CURDATE()
+        ) OR
+        (
+            '$search' = 'inactive' AND ms.endDate < CURDATE()
+        )
+    ";
 }
 
 $sql .= " GROUP BY m.memberID ORDER BY m.memberID ASC";
+
 $result = $conn->query($sql);
 ?>
+
+<?php
+include 'db.php';
+
+/* ==========================
+   AJAX REQUEST HANDLER
+========================== */
+if (isset($_GET['ajax']) && $_GET['ajax'] === 'members') {
+
+    $search = isset($_GET['search']) ? trim($_GET['search']) : '';
+
+    $sql = "
+    SELECT 
+        m.memberID,
+        m.fullName,
+        m.phoneNum,
+        IFNULL(mt.mTypeName, 'No Plan') AS tier,
+        IFNULL(p.paymentStatus, 'Pending') AS payStatus,
+        ms.endDate
+    FROM member m
+    LEFT JOIN membership ms ON m.memberID = ms.memberID
+    LEFT JOIN membership_type mt ON ms.mTypeID = mt.mTypeID
+    LEFT JOIN payment p ON ms.paymentID = p.paymentID
+    ";
+
+    if ($search !== '') {
+        $search = $conn->real_escape_string($search);
+        $sql .= "
+        WHERE
+            m.fullName LIKE '%$search%' OR
+            m.phoneNum LIKE '%$search%' OR
+            mt.mTypeName LIKE '%$search%' OR
+            p.paymentStatus LIKE '%$search%' OR
+            (
+                '$search' = 'active' AND ms.endDate >= CURDATE()
+            ) OR
+            (
+                '$search' = 'inactive' AND ms.endDate < CURDATE()
+            )
+        ";
+    }
+
+    $sql .= " GROUP BY m.memberID ORDER BY m.memberID ASC";
+
+    $result = $conn->query($sql);
+    $data = [];
+
+    while ($row = $result->fetch_assoc()) {
+        $row['isActive'] = (!empty($row['endDate']) && $row['endDate'] >= date('Y-m-d'));
+        $data[] = $row;
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($data);
+    exit; // IMPORTANT
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -45,10 +117,18 @@ $result = $conn->query($sql);
         <h1>Registered Members</h1>
 
         <div class="search-bar">
-            <form method="GET">
-                <input type="text" name="search" placeholder="Search members..." value="<?= htmlspecialchars($search) ?>">
-            </form>
+    <form method="GET" id="searchForm">
+        <div class="search-wrapper">
+            <input 
+                type="text" 
+                name="search" 
+                id="searchInput"
+                placeholder="Search name, tier, status..."
+                value="<?= htmlspecialchars($search) ?>"
+            >
         </div>
+    </form>
+</div>
 
         <table id="membersTable">
             <thead>

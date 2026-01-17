@@ -69,6 +69,20 @@ function openModal(type, id) {
         .catch(() => alert("Failed to load member data"));
 }
 
+const searchInput = document.getElementById("searchInput");
+
+if (searchInput) {
+    searchInput.addEventListener("input", function () {
+        if (this.value === "") {
+            window.location.href = "registered_member.php";
+        }
+    });
+}
+
+function clearSearch() {
+    window.location.href = "registered_member.php";
+}
+
 function closeModal() {
     document.getElementById("memberModal").style.display = "none";
 }
