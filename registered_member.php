@@ -4,7 +4,7 @@ include 'db.php';
 $search = isset($_GET['search']) ? trim($_GET['search']) : '';
 
 $sql = "
-SELECT m.memberID, m.fullName, m.phoneNum,
+SELECT m.memberID, m.fullName, m.phoneNum,m.street, m.city, m.postcode, m.state, m.birthDate,
     IFNULL(mt.mTypeName, 'No Plan') AS tier,
     IFNULL(p.paymentStatus, 'Pending') AS payStatus,
     ms.endDate
@@ -50,6 +50,8 @@ if (isset($_GET['ajax']) && $_GET['ajax'] === 'members') {
         m.memberID,
         m.fullName,
         m.phoneNum,
+        m.street, m.city, m.postcode, m.state,
+        m.birthDate,
         IFNULL(mt.mTypeName, 'No Plan') AS tier,
         IFNULL(p.paymentStatus, 'Pending') AS payStatus,
         ms.endDate
@@ -191,6 +193,30 @@ if (isset($_GET['ajax']) && $_GET['ajax'] === 'members') {
             <div class="form-group">
                 <label>Phone Number</label>
                 <input type="text" id="editPhone">
+            </div>
+            <div class="form-group">
+                <label>Date of Birth</label>
+                <input type="date" id="editBirthDate">
+            </div>
+
+            <div class="form-group">
+                <label>Street</label>
+                <input type="text" id="editStreet">
+            </div>
+
+            <div class="form-group">
+                <label>City</label>
+                <input type="text" id="editCity">
+            </div>
+
+            <div class="form-group">
+                <label>Postcode</label>
+                <input type="text" id="editPostcode">
+            </div>
+
+            <div class="form-group">
+                <label>State</label>
+                <input type="text" id="editState">
             </div>
             <div id="modalFooter">
                 <button type="button" class="save-btn">Save Changes</button>

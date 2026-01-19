@@ -10,7 +10,7 @@ if (!isset($_GET['id'])) {
 $id = intval($_GET['id']);
 
 $stmt = $conn->prepare(
-    "SELECT fullName, phoneNum
+    "SELECT fullName, phoneNum, street, city, postcode, state, birthDate
      FROM member
      WHERE memberID = ?"
 );

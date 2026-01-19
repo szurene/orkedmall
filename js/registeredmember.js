@@ -43,6 +43,11 @@ function openModal(type, id) {
     // Identify our new input field
     const fullNameField = document.getElementById("editFullName");
     const editPhone = document.getElementById("editPhone");
+    const editBirthDate = document.getElementById("editBirthDate");
+    const editStreet    = document.getElementById("editStreet");
+    const editCity      = document.getElementById("editCity");
+    const editPostcode  = document.getElementById("editPostcode");
+    const editState     = document.getElementById("editState");
 
     const inputs = document.querySelectorAll("#modalForm input");
     inputs.forEach(i => {
@@ -65,6 +70,11 @@ function openModal(type, id) {
             
             fullNameField.value = d.fullName; 
             editPhone.value = d.phoneNum || "";
+            editBirthDate.value = d.birthDate || "";
+            editStreet.value    = d.street || "";
+            editCity.value      = d.city || "";
+            editPostcode.value  = d.postcode || "";
+            editState.value     = d.state || "";
         })
         .catch(() => alert("Failed to load member data"));
 }
